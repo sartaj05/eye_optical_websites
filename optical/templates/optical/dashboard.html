@@ -1,0 +1,314 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account – Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --white: #ffffff; --off-white: #f7fafd;
+      --light-gray: #edf2f7; --mid-gray: #a0aec0; --text-dark: #1a202c;
+      --text-body: #4a5568; --text-light: #718096; --success: #38a169;
+      --border: #e2e8f0; --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.10); --shadow-lg: 0 16px 48px rgba(0,0,0,0.13);
+      --radius: 14px; --radius-sm: 8px; --transition: 0.3s ease;
+      --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); line-height: 1.7; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 50px; font-weight: 700; font-size: 0.88rem; font-family: var(--font-body); cursor: pointer; border: none; transition: var(--transition); text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-danger { background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; }
+    .btn-danger:hover { background: #c53030; color: #fff; }
+
+    .ann-bar { background: linear-gradient(90deg,var(--primary-dark),var(--primary)); color:#fff; text-align:center; padding:9px 20px; font-size:0.84rem; font-weight:600; }
+    .navbar { background: var(--white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; max-width: 1200px; margin: 0 auto; }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; background: linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark); }
+    .brand-sub { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { padding: 7px 13px; border-radius: 8px; color: var(--text-body); text-decoration: none; font-weight: 600; font-size: 0.91rem; transition: var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--primary-light); }
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+    .nav-call { display: flex; align-items: center; gap: 6px; padding: 9px 18px; background: var(--primary); color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.87rem; }
+    .nav-wa { width: 37px; height: 37px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+
+    /* PROFILE HERO */
+    .profile-hero {
+      background: linear-gradient(135deg, #0f3f7a 0%, #1a6fc4 60%, #2589e8 100%);
+      padding: 40px 0 30px;
+    }
+    .profile-hero-inner { display: flex; align-items: center; gap: 20px; }
+    .avatar { width: 72px; height: 72px; background: rgba(255,255,255,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; border: 3px solid rgba(255,255,255,.4); flex-shrink: 0; }
+    .profile-info .pname { font-family: var(--font-display); font-size: 1.6rem; color: #fff; line-height: 1.2; }
+    .profile-info .pphone { color: rgba(255,255,255,.8); font-size: 0.9rem; }
+    .profile-info .pemail { color: rgba(255,255,255,.65); font-size: 0.85rem; }
+    .profile-actions { margin-left: auto; display: flex; gap: 10px; flex-wrap: wrap; }
+
+    /* STATS STRIP */
+    .stats-strip { background: var(--white); border-bottom: 1px solid var(--border); padding: 20px 0; }
+    .stats-row { display: flex; gap: 0; }
+    .stat-item { flex: 1; text-align: center; padding: 12px 0; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 0.78rem; color: var(--text-light); font-weight: 600; margin-top: 2px; }
+
+    /* TABS */
+    .dash-tabs { display: flex; border-bottom: 2px solid var(--border); background: var(--white); }
+    .dash-tab { padding: 16px 28px; font-weight: 700; font-size: 0.92rem; color: var(--text-light); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: var(--transition); display: flex; align-items: center; gap: 7px; background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-body); }
+    .dash-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .dash-tab:hover:not(.active) { color: var(--text-dark); background: var(--light-gray); }
+
+    .tab-panel { display: none; padding: 32px 0 60px; }
+    .tab-panel.active { display: block; }
+
+    /* CARDS */
+    .order-card {
+      background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm);
+      margin-bottom: 16px; overflow: hidden; border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    .order-card:hover { box-shadow: var(--shadow-md); border-color: rgba(26,111,196,.2); }
+    .order-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--off-white); flex-wrap: wrap; gap: 10px; }
+    .order-id { font-weight: 800; color: var(--text-dark); font-size: 0.95rem; }
+    .order-date { font-size: 0.8rem; color: var(--text-light); font-weight: 600; }
+    .order-body { padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+    .order-product { font-weight: 700; color: var(--text-dark); font-size: 0.98rem; margin-bottom: 4px; }
+    .order-address { font-size: 0.83rem; color: var(--text-light); }
+
+    .status-badge { display: inline-block; padding: 4px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 800; }
+    .status-pending { background: #fef3c7; color: #92400e; }
+    .status-confirmed { background: #ebf8ff; color: #2b6cb0; }
+    .status-processing { background: #e9d8fd; color: #553c9a; }
+    .status-delivered { background: #f0fff4; color: #276749; }
+    .status-cancelled { background: #fff5f5; color: #9b2c2c; }
+
+    /* APPOINTMENT CARDS */
+    .appt-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); margin-bottom: 16px; border: 1px solid var(--border); transition: var(--transition); }
+    .appt-card:hover { box-shadow: var(--shadow-md); }
+    .appt-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--off-white); flex-wrap: wrap; gap: 10px; }
+    .appt-body { padding: 18px 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .appt-field .afield-label { font-size: 0.75rem; color: var(--text-light); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+    .appt-field .afield-val { font-weight: 700; color: var(--text-dark); font-size: 0.9rem; }
+    .confirmed-badge { background: #f0fff4; color: #276749; }
+    .pending-badge { background: #fef3c7; color: #92400e; }
+
+    .empty-state { text-align: center; padding: 60px 20px; }
+    .empty-state i { font-size: 3.5rem; color: var(--mid-gray); margin-bottom: 16px; }
+    .empty-state h3 { font-family: var(--font-display); font-size: 1.3rem; color: var(--text-dark); margin-bottom: 8px; }
+    .empty-state p { color: var(--text-light); margin-bottom: 22px; }
+
+    /* MESSAGES */
+    .alert { display: flex; gap: 10px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; margin-bottom: 16px; }
+    .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+
+    .simple-footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 22px; font-size: 0.85rem; }
+    .simple-footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .profile-hero-inner { flex-direction: column; align-items: flex-start; }
+      .profile-actions { margin-left: 0; }
+      .appt-body { grid-template-columns: 1fr; }
+      .dash-tab { padding: 12px 16px; font-size: 0.82rem; }
+      .stats-row { flex-wrap: wrap; }
+      .stat-item { flex: 1 1 50%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Pratapgarh, U.P.</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'products' %}">Products</a></li>
+      <li><a href="{% url 'book_appointment' %}">📅 Appointment</a></li>
+      <li><a href="{% url 'customer_dashboard' %}" class="active">👤 My Account</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="{% url 'customer_logout' %}" class="btn btn-danger" style="padding:8px 18px;border-radius:50px;font-size:0.85rem;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a href="https://wa.me/919044790354" target="_blank" class="nav-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- PROFILE HERO -->
+<div class="profile-hero">
+  <div class="container">
+    <div class="profile-hero-inner">
+      <div class="avatar">👤</div>
+      <div class="profile-info">
+        <div class="pname">{{ customer.name }}</div>
+        <div class="pphone"><i class="fas fa-phone" style="font-size:0.8rem;"></i> {{ customer.phone }}</div>
+        {% if customer.email %}<div class="pemail"><i class="fas fa-envelope" style="font-size:0.8rem;"></i> {{ customer.email }}</div>{% endif %}
+        {% if customer.city %}<div class="pemail"><i class="fas fa-map-marker-alt" style="font-size:0.8rem;"></i> {{ customer.city }}</div>{% endif %}
+      </div>
+      <div class="profile-actions">
+        <a href="{% url 'products' %}" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Shop More</a>
+        <a href="{% url 'book_appointment' %}" class="btn btn-accent"><i class="fas fa-calendar-plus"></i> Book Appointment</a>
+        <a href="{% url 'customer_logout' %}" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-num">{{ orders|length }}</div><div class="stat-label">Total Orders</div></div>
+      <div class="stat-item"><div class="stat-num">{{ orders|length }}</div><div class="stat-label">Orders Placed</div></div>
+      <div class="stat-item"><div class="stat-num">{{ appointments|length }}</div><div class="stat-label">Appointments</div></div>
+      <div class="stat-item"><div class="stat-num">⭐ 4.7</div><div class="stat-label">Shop Rating</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MESSAGES -->
+{% if messages %}
+<div class="container" style="padding-top:20px;">
+  {% for msg in messages %}
+  <div class="alert alert-success">{{ msg }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- TABS -->
+<div class="dash-tabs">
+  <div class="container" style="padding:0 20px;display:flex;">
+    <button class="dash-tab active" onclick="switchDashTab('orders', this)">
+      <i class="fas fa-shopping-bag"></i> My Orders ({{ orders|length }})
+    </button>
+    <button class="dash-tab" onclick="switchDashTab('appointments', this)">
+      <i class="fas fa-calendar-alt"></i> My Appointments ({{ appointments|length }})
+    </button>
+  </div>
+</div>
+
+<!-- ORDERS TAB -->
+<div class="tab-panel active" id="tab-orders">
+  <div class="container">
+    {% if orders %}
+      {% for order in orders %}
+      <div class="order-card">
+        <div class="order-header">
+          <div>
+            <div class="order-id">Order #{{ order.id }}</div>
+            <div class="order-date">{{ order.created_at|date:"d M Y, h:i A" }}</div>
+          </div>
+          <span class="status-badge status-{{ order.status }}">
+            {% if order.status == 'pending' %}⏳{% elif order.status == 'confirmed' %}✅{% elif order.status == 'processing' %}🔄{% elif order.status == 'delivered' %}📦{% else %}❌{% endif %}
+            {{ order.get_status_display }}
+          </span>
+        </div>
+        <div class="order-body">
+          <div>
+            <div class="order-product">{{ order.product_name }}</div>
+            {% if order.product_price_range %}<div style="font-size:0.85rem;color:var(--primary);font-weight:700;">{{ order.product_price_range }}</div>{% endif %}
+            <div class="order-address"><i class="fas fa-map-marker-alt"></i> {{ order.delivery_address }}, {{ order.delivery_city }} – {{ order.delivery_pincode }}</div>
+            {% if order.notes %}<div class="order-address" style="margin-top:4px;"><i class="fas fa-sticky-note"></i> {{ order.notes|truncatechars:80 }}</div>{% endif %}
+          </div>
+          <a href="https://wa.me/919044790354?text=Hi!%20Mera%20Order%20%23{{ order.id }}%20ke%20baare%20mein%20jaanna%20chahta%20hoon." target="_blank" class="btn" style="background:#25d366;color:#fff;border-radius:50px;white-space:nowrap;flex-shrink:0;">
+            <i class="fab fa-whatsapp"></i> Track Order
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <div class="empty-state">
+      <i class="fas fa-shopping-bag"></i>
+      <h3>Koi order nahi mila</h3>
+      <p>Aapne abhi tak koi order nahi kiya. Products dekho aur pehla order karo!</p>
+      <a href="{% url 'products' %}" class="btn btn-primary"><i class="fas fa-shopping-bag"></i> Products Dekho</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- APPOINTMENTS TAB -->
+<div class="tab-panel" id="tab-appointments">
+  <div class="container">
+    {% if appointments %}
+      {% for appt in appointments %}
+      <div class="appt-card">
+        <div class="appt-header">
+          <div>
+            <div class="order-id">Appointment #{{ appt.id }}</div>
+            <div class="order-date">Booked on {{ appt.created_at|date:"d M Y" }}</div>
+          </div>
+          <span class="status-badge {% if appt.is_confirmed %}confirmed-badge{% else %}pending-badge{% endif %}">
+            {% if appt.is_confirmed %}✅ Confirmed{% else %}⏳ Pending Confirmation{% endif %}
+          </span>
+        </div>
+        <div class="appt-body">
+          <div class="appt-field">
+            <div class="afield-label">Service</div>
+            <div class="afield-val">{{ appt.get_service_type_display }}</div>
+          </div>
+          <div class="appt-field">
+            <div class="afield-label">Date</div>
+            <div class="afield-val">{{ appt.preferred_date|date:"d M Y" }}</div>
+          </div>
+          <div class="appt-field">
+            <div class="afield-label">Time</div>
+            <div class="afield-val">{{ appt.preferred_time }}</div>
+          </div>
+          <div class="appt-field">
+            <div class="afield-label">Phone</div>
+            <div class="afield-val">{{ appt.phone }}</div>
+          </div>
+          {% if appt.notes %}
+          <div class="appt-field" style="grid-column:1/-1;">
+            <div class="afield-label">Notes</div>
+            <div class="afield-val" style="font-weight:500;color:var(--text-body);">{{ appt.notes }}</div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+    <div class="empty-state">
+      <i class="fas fa-calendar-alt"></i>
+      <h3>Koi appointment nahi</h3>
+      <p>Eye checkup ya frame selection ke liye appointment book karo.</p>
+      <a href="{% url 'book_appointment' %}" class="btn btn-primary"><i class="fas fa-calendar-plus"></i> Appointment Book Karo</a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+<script>
+  function switchDashTab(tab, btn) {
+    document.querySelectorAll('.dash-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+  }
+</script>
+</body>
+</html>

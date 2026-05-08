@@ -1,0 +1,701 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --accent-dark: #e08c00;
+      --white: #ffffff; --off-white: #f0f4f8; --light-gray: #edf2f7;
+      --text-dark: #1a202c; --text-body: #4a5568; --text-light: #718096;
+      --success: #38a169; --success-light: #f0fff4;
+      --warning: #d69e2e; --warning-light: #fef3c7;
+      --danger: #e53e3e; --danger-light: #fff5f5;
+      --purple: #6b46c1; --purple-light: #faf5ff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.13);
+      --radius: 14px; --radius-sm: 8px; --transition: 0.25s ease;
+      --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+      --sidebar-w: 230px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: var(--sidebar-w); background: #0f2544; color: #fff;
+      display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh;
+      z-index: 200; transition: var(--transition);
+    }
+    .sidebar-brand {
+      padding: 22px 20px 18px; border-bottom: 1px solid rgba(255,255,255,.1);
+      display: flex; align-items: center; gap: 11px;
+    }
+    .sidebar-logo {
+      width: 42px; height: 42px; background: var(--primary); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+    }
+    .sidebar-brand-name { font-family: var(--font-display); font-size: 1rem; font-weight: 700; line-height: 1.2; }
+    .sidebar-brand-sub { font-size: 0.68rem; color: rgba(255,255,255,.5); font-weight: 600; }
+
+    .sidebar-section { padding: 14px 12px 6px; font-size: 0.68rem; color: rgba(255,255,255,.35); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .sidebar-nav { list-style: none; padding: 0 10px; }
+    .sidebar-nav li a {
+      display: flex; align-items: center; gap: 11px; padding: 10px 14px; border-radius: 9px;
+      color: rgba(255,255,255,.75); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      transition: var(--transition); margin-bottom: 2px;
+    }
+    .sidebar-nav li a:hover { background: rgba(255,255,255,.08); color: #fff; }
+    .sidebar-nav li a.active { background: var(--primary); color: #fff; }
+    .sidebar-nav li a i { width: 18px; text-align: center; font-size: 0.95rem; }
+    .sidebar-badge { margin-left: auto; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; }
+    .sidebar-badge.danger { background: var(--danger); }
+
+    .sidebar-footer { margin-top: auto; padding: 14px 12px; border-top: 1px solid rgba(255,255,255,.08); }
+    .sidebar-user { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 9px; background: rgba(255,255,255,.06); }
+    .sidebar-user-avatar { width: 34px; height: 34px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; flex-shrink: 0; }
+    .sidebar-user-name { font-weight: 700; font-size: 0.85rem; color: #fff; }
+    .sidebar-user-role { font-size: 0.7rem; color: rgba(255,255,255,.45); }
+    .sidebar-logout { margin-top: 8px; display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 9px; color: rgba(255,255,255,.6); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: var(--transition); }
+    .sidebar-logout:hover { background: rgba(229,62,62,.15); color: #fc8181; }
+
+    /* ── MAIN CONTENT ── */
+    .main { margin-left: var(--sidebar-w); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      background: var(--white); border-bottom: 1px solid var(--border); padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .topbar-title { font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; color: var(--text-dark); }
+    .topbar-right { display: flex; align-items: center; gap: 14px; }
+    .topbar-site-link { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--primary-light); color: var(--primary); border-radius: 50px; font-weight: 700; font-size: 0.83rem; text-decoration: none; transition: var(--transition); }
+    .topbar-site-link:hover { background: var(--primary); color: #fff; }
+    .topbar-time { font-size: 0.8rem; color: var(--text-light); font-weight: 600; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar-wrap { padding: 20px 28px 0; }
+    .search-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .search-input-wrap { position: relative; flex: 1; min-width: 200px; }
+    .search-input-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-light); }
+    .search-input { width: 100%; padding: 10px 16px 10px 40px; border: 2px solid var(--border); border-radius: 50px; font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: var(--transition); }
+    .search-input:focus { border-color: var(--primary); }
+    .search-btn { padding: 10px 22px; background: var(--primary); color: #fff; border: none; border-radius: 50px; font-weight: 700; font-size: 0.88rem; cursor: pointer; font-family: var(--font-body); transition: var(--transition); }
+    .search-btn:hover { background: var(--primary-dark); }
+    .search-clear { padding: 10px 18px; background: var(--light-gray); color: var(--text-body); border: none; border-radius: 50px; font-weight: 700; font-size: 0.88rem; cursor: pointer; font-family: var(--font-body); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+
+    /* ── STATS GRID ── */
+    .page-content { padding: 24px 28px 50px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-card {
+      background: var(--white); border-radius: var(--radius); padding: 20px 22px;
+      box-shadow: var(--shadow-sm); border: 1px solid var(--border);
+      display: flex; align-items: center; gap: 16px; transition: var(--transition);
+    }
+    .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .stat-icon { width: 52px; height: 52px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; }
+    .stat-icon.blue { background: var(--primary-light); }
+    .stat-icon.green { background: var(--success-light); }
+    .stat-icon.amber { background: var(--warning-light); }
+    .stat-icon.purple { background: var(--purple-light); }
+    .stat-icon.red { background: var(--danger-light); }
+    .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; color: var(--text-dark); line-height: 1; }
+    .stat-label { font-size: 0.78rem; color: var(--text-light); font-weight: 700; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .stat-sub { font-size: 0.75rem; color: var(--text-light); margin-top: 2px; }
+
+    /* ── MINI STATS ROW ── */
+    .mini-stats { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+    .mini-stat { padding: 8px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .mini-stat.pending { background: var(--warning-light); color: var(--warning); }
+    .mini-stat.confirmed { background: #ebf8ff; color: #2b6cb0; }
+    .mini-stat.delivered { background: var(--success-light); color: var(--success); }
+    .mini-stat.appt-p { background: var(--danger-light); color: var(--danger); }
+    .mini-stat.appt-c { background: var(--success-light); color: var(--success); }
+
+    /* ── SECTION TABS ── */
+    .section-tabs { display: flex; gap: 4px; border-bottom: 2px solid var(--border); margin-bottom: 24px; background: var(--white); border-radius: var(--radius) var(--radius) 0 0; padding: 0 4px; box-shadow: var(--shadow-sm); }
+    .section-tab { padding: 14px 22px; font-weight: 700; font-size: 0.9rem; color: var(--text-light); cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: var(--transition); background: none; border-top: none; border-left: none; border-right: none; font-family: var(--font-body); display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+    .section-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .section-tab:hover:not(.active) { color: var(--text-dark); }
+    .tab-count { background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 50px; font-size: 0.72rem; font-weight: 800; }
+    .tab-count.red { background: var(--danger-light); color: var(--danger); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── FILTER ROW ── */
+    .filter-row { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; align-items: center; }
+    .filter-label { font-size: 0.82rem; font-weight: 700; color: var(--text-light); }
+    .filter-btn { padding: 6px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; border: 2px solid var(--border); background: var(--white); color: var(--text-body); text-decoration: none; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 5px; }
+    .filter-btn:hover, .filter-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .filter-btn.amber.active { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
+    .filter-btn.green.active { background: var(--success-light); color: var(--success); border-color: var(--success); }
+    .filter-btn.red.active { background: var(--danger-light); color: var(--danger); border-color: var(--danger); }
+
+    /* ── TABLE ── */
+    .table-wrap { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); border: 1px solid var(--border); overflow: hidden; }
+    .table-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; border-bottom: 1px solid var(--border); background: var(--off-white); }
+    .table-header h3 { font-family: var(--font-display); font-size: 1rem; color: var(--text-dark); }
+    table { width: 100%; border-collapse: collapse; }
+    th { background: var(--off-white); padding: 11px 16px; text-align: left; font-size: 0.78rem; font-weight: 800; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid var(--border); white-space: nowrap; }
+    td { padding: 13px 16px; border-bottom: 1px solid var(--light-gray); font-size: 0.88rem; vertical-align: middle; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafbff; }
+    .td-name { font-weight: 700; color: var(--text-dark); }
+    .td-sub { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+    .td-phone a { color: var(--primary); font-weight: 700; text-decoration: none; }
+    .td-phone a:hover { text-decoration: underline; }
+
+    /* STATUS BADGES */
+    .badge { display: inline-block; padding: 3px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 800; white-space: nowrap; }
+    .badge-pending { background: var(--warning-light); color: var(--warning); }
+    .badge-confirmed { background: #ebf8ff; color: #2b6cb0; }
+    .badge-processing { background: var(--purple-light); color: var(--purple); }
+    .badge-delivered { background: var(--success-light); color: var(--success); }
+    .badge-cancelled { background: var(--danger-light); color: var(--danger); }
+    .badge-yes { background: var(--success-light); color: var(--success); }
+    .badge-no { background: var(--warning-light); color: var(--warning); }
+
+    /* QUICK ACTION FORM (inline status update) */
+    .status-form { display: flex; align-items: center; gap: 6px; }
+    .status-select { padding: 4px 10px; border: 1.5px solid var(--border); border-radius: 7px; font-family: var(--font-body); font-size: 0.8rem; font-weight: 700; outline: none; cursor: pointer; background: var(--white); }
+    .status-select:focus { border-color: var(--primary); }
+    .status-update-btn { padding: 5px 12px; background: var(--primary); color: #fff; border: none; border-radius: 7px; font-size: 0.78rem; font-weight: 700; cursor: pointer; font-family: var(--font-body); transition: var(--transition); white-space: nowrap; }
+    .status-update-btn:hover { background: var(--primary-dark); }
+
+    .confirm-btn { padding: 5px 14px; background: var(--success); color: #fff; border: none; border-radius: 7px; font-size: 0.78rem; font-weight: 700; cursor: pointer; font-family: var(--font-body); transition: var(--transition); }
+    .confirm-btn:hover { background: #276749; }
+    .confirmed-tag { font-size: 0.78rem; font-weight: 700; color: var(--success); display: flex; align-items: center; gap: 4px; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 50px 20px; color: var(--text-light); }
+    .empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.95rem; font-weight: 600; }
+
+    /* MESSAGES */
+    .messages-wrap { padding: 0 28px 0; }
+    .alert { display: flex; align-items: center; gap: 10px; padding: 12px 18px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; }
+    .alert-success { background: var(--success-light); color: #276749; border: 1px solid #c6f6d5; }
+    .alert-error { background: var(--danger-light); color: #9b2c2c; border: 1px solid #fed7d7; }
+
+    /* INQUIRY CARDS */
+    .inq-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 12px; }
+    .inq-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .inq-name { font-weight: 800; color: var(--text-dark); }
+    .inq-date { font-size: 0.78rem; color: var(--text-light); font-weight: 600; }
+    .inq-msg { font-size: 0.88rem; color: var(--text-body); background: var(--off-white); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid var(--primary); margin-top: 6px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .sidebar { width: 0; overflow: hidden; }
+      .sidebar.open { width: var(--sidebar-w); }
+      .main { margin-left: 0; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .topbar { padding: 12px 16px; }
+      .page-content { padding: 16px 14px 40px; }
+      .search-bar-wrap { padding: 16px 14px 0; }
+      th, td { padding: 10px 12px; }
+      .hamburger-btn { display: flex; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+    }
+
+    .hamburger-btn { display: none; background: none; border: none; cursor: pointer; padding: 6px; color: var(--text-dark); font-size: 1.1rem; align-items: center; }
+    .mobile-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 199; }
+    .mobile-overlay.open { display: block; }
+
+    .table-scroll { overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+<!-- MOBILE OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeSidebar()"></div>
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo">👁️</div>
+    <div>
+      <div class="sidebar-brand-name">Eye Drishti</div>
+      <div class="sidebar-brand-sub">Admin Panel</div>
+    </div>
+  </div>
+
+  <div class="sidebar-section">Overview</div>
+  <ul class="sidebar-nav">
+    <li><a href="#" onclick="switchTab('orders'); return false;" class="active" id="nav-orders">
+      <i class="fas fa-shopping-bag"></i> Orders
+      <span class="sidebar-badge danger">{{ stats.pending_orders }}</span>
+    </a></li>
+    <li><a href="#" onclick="switchTab('appointments'); return false;" id="nav-appointments">
+      <i class="fas fa-calendar-check"></i> Appointments
+      <span class="sidebar-badge danger">{{ stats.pending_appointments }}</span>
+    </a></li>
+    <li><a href="#" onclick="switchTab('customers'); return false;" id="nav-customers">
+      <i class="fas fa-users"></i> Customers
+      <span class="sidebar-badge">{{ stats.total_customers }}</span>
+    </a></li>
+    <li><a href="#" onclick="switchTab('inquiries'); return false;" id="nav-inquiries">
+      <i class="fas fa-envelope"></i> Inquiries
+      <span class="sidebar-badge">{{ stats.total_inquiries }}</span>
+    </a></li>
+  </ul>
+
+  <div class="sidebar-section">Quick Links</div>
+  <ul class="sidebar-nav">
+    <li><a href="{% url 'home' %}" target="_blank"><i class="fas fa-globe"></i> View Website</a></li>
+    <li><a href="{% url 'products' %}" target="_blank"><i class="fas fa-tag"></i> Products Page</a></li>
+    <li><a href="/admin/" target="_blank"><i class="fas fa-cogs"></i> Django Admin</a></li>
+    <li><a href="https://wa.me/919044790354" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="sidebar-user-avatar">{{ request.user.username|first|upper }}</div>
+      <div>
+        <div class="sidebar-user-name">{{ request.user.username }}</div>
+        <div class="sidebar-user-role">{% if request.user.is_superuser %}Superuser{% else %}Staff{% endif %}</div>
+      </div>
+    </div>
+    <a href="/admin/logout/" class="sidebar-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+  </div>
+</aside>
+
+<!-- ══════════ MAIN ══════════ -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="hamburger-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <div class="topbar-title">📊 Admin Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <div class="topbar-time" id="topbarTime"></div>
+      <a href="{% url 'home' %}" target="_blank" class="topbar-site-link">
+        <i class="fas fa-external-link-alt"></i> Live Site
+      </a>
+    </div>
+  </div>
+
+  <!-- MESSAGES -->
+  {% if messages %}
+  <div class="messages-wrap" style="padding-top:16px;">
+    {% for message in messages %}
+    <div class="alert {% if 'success' in message.tags %}alert-success{% else %}alert-error{% endif %}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- SEARCH BAR -->
+  <div class="search-bar-wrap">
+    <form method="GET" class="search-bar">
+      <div class="search-input-wrap">
+        <i class="fas fa-search"></i>
+        <input type="text" name="search" class="search-input" placeholder="Search by name, phone, or product…" value="{{ search }}" />
+      </div>
+      {% if order_status_filter %}<input type="hidden" name="order_status" value="{{ order_status_filter }}" />{% endif %}
+      {% if appt_confirmed_filter %}<input type="hidden" name="appt_confirmed" value="{{ appt_confirmed_filter }}" />{% endif %}
+      <button type="submit" class="search-btn"><i class="fas fa-search"></i> Search</button>
+      {% if search %}<a href="{% url 'admin_dashboard' %}" class="search-clear"><i class="fas fa-times"></i> Clear</a>{% endif %}
+    </form>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content">
+
+    <!-- STATS GRID -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon blue">🛒</div>
+        <div>
+          <div class="stat-num">{{ stats.total_orders }}</div>
+          <div class="stat-label">Total Orders</div>
+          <div class="stat-sub">{{ stats.pending_orders }} pending</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon amber">📅</div>
+        <div>
+          <div class="stat-num">{{ stats.total_appointments }}</div>
+          <div class="stat-label">Appointments</div>
+          <div class="stat-sub">{{ stats.pending_appointments }} to confirm</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green">👥</div>
+        <div>
+          <div class="stat-num">{{ stats.total_customers }}</div>
+          <div class="stat-label">Registered Customers</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon purple">✉️</div>
+        <div>
+          <div class="stat-num">{{ stats.total_inquiries }}</div>
+          <div class="stat-label">Inquiries Received</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MINI STATUS STATS -->
+    <div class="mini-stats">
+      <span class="mini-stat pending">⏳ {{ stats.pending_orders }} Orders Pending</span>
+      <span class="mini-stat confirmed">✅ {{ stats.confirmed_orders }} Confirmed</span>
+      <span class="mini-stat delivered">📦 {{ stats.delivered_orders }} Delivered</span>
+      <span class="mini-stat appt-p">🔴 {{ stats.pending_appointments }} Appts Unconfirmed</span>
+      <span class="mini-stat appt-c">🟢 {{ stats.confirmed_appointments }} Appts Confirmed</span>
+    </div>
+
+    <!-- SECTION TABS -->
+    <div class="section-tabs">
+      <button class="section-tab active" onclick="switchTab('orders')" id="tab-orders">
+        <i class="fas fa-shopping-bag"></i> Orders
+        <span class="tab-count red">{{ stats.pending_orders }}</span>
+      </button>
+      <button class="section-tab" onclick="switchTab('appointments')" id="tab-appointments">
+        <i class="fas fa-calendar-check"></i> Appointments
+        <span class="tab-count red">{{ stats.pending_appointments }}</span>
+      </button>
+      <button class="section-tab" onclick="switchTab('customers')" id="tab-customers">
+        <i class="fas fa-users"></i> Customers
+      </button>
+      <button class="section-tab" onclick="switchTab('inquiries')" id="tab-inquiries">
+        <i class="fas fa-envelope"></i> Inquiries
+      </button>
+    </div>
+
+    <!-- ══ ORDERS TAB ══ -->
+    <div class="tab-panel active" id="panel-orders">
+      <div class="filter-row">
+        <span class="filter-label">Filter:</span>
+        <a href="?{% if search %}search={{ search }}&{% endif %}" class="filter-btn {% if not order_status_filter %}active{% endif %}">All</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}order_status=pending" class="filter-btn amber {% if order_status_filter == 'pending' %}active{% endif %}">⏳ Pending</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}order_status=confirmed" class="filter-btn green {% if order_status_filter == 'confirmed' %}active{% endif %}">✅ Confirmed</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}order_status=processing" class="filter-btn {% if order_status_filter == 'processing' %}active{% endif %}">🔄 Processing</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}order_status=delivered" class="filter-btn green {% if order_status_filter == 'delivered' %}active{% endif %}">📦 Delivered</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}order_status=cancelled" class="filter-btn red {% if order_status_filter == 'cancelled' %}active{% endif %}">❌ Cancelled</a>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-header">
+          <h3>📦 Orders ({{ orders|length }})</h3>
+        </div>
+        {% if orders %}
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Delivery Address</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Update Status</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td><strong style="color:var(--primary);">#{{ order.id }}</strong></td>
+                <td>
+                  <div class="td-name">{{ order.customer.name }}</div>
+                  <div class="td-sub">📱 {{ order.customer.phone }}</div>
+                  {% if order.customer.email %}<div class="td-sub">✉️ {{ order.customer.email }}</div>{% endif %}
+                </td>
+                <td>
+                  <div class="td-name">{{ order.product_name }}</div>
+                  {% if order.product_price_range %}<div class="td-sub" style="color:var(--primary);font-weight:700;">{{ order.product_price_range }}</div>{% endif %}
+                  {% if order.notes %}<div class="td-sub" title="{{ order.notes }}">📝 {{ order.notes|truncatechars:40 }}</div>{% endif %}
+                </td>
+                <td>
+                  <div style="font-size:0.85rem;">{{ order.delivery_address|truncatechars:45 }}</div>
+                  <div class="td-sub">{{ order.delivery_city }}, {{ order.delivery_pincode }}</div>
+                  {% if order.landmark %}<div class="td-sub">📍 {{ order.landmark }}</div>{% endif %}
+                </td>
+                <td style="white-space:nowrap;">{{ order.created_at|date:"d M Y" }}<br><span class="td-sub">{{ order.created_at|date:"h:i A" }}</span></td>
+                <td>
+                  <span class="badge badge-{{ order.status }}">{{ order.get_status_display }}</span>
+                </td>
+                <td>
+                  <form method="POST" class="status-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="update_order_status" />
+                    <input type="hidden" name="order_id" value="{{ order.id }}" />
+                    <select name="status" class="status-select">
+                      {% for val, label in order_status_choices %}
+                      <option value="{{ val }}" {% if order.status == val %}selected{% endif %}>{{ label }}</option>
+                      {% endfor %}
+                    </select>
+                    <button type="submit" class="status-update-btn">Save</button>
+                  </form>
+                </td>
+                <td>
+                  <a href="tel:{{ order.customer.phone }}" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--primary-light);color:var(--primary);border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;margin-bottom:4px;">
+                    <i class="fas fa-phone-alt"></i> Call
+                  </a><br>
+                  <a href="https://wa.me/91{{ order.customer.phone }}?text=Hi%20{{ order.customer.name|urlencode }}%20ji!%20Your%20Order%20%23{{ order.id }}%20for%20{{ order.product_name|urlencode }}%20is%20being%20processed.%20Please%20contact%20us%20for%20any%20queries." target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:#f0fff4;color:#276749;border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;">
+                    <i class="fab fa-whatsapp"></i> WA
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">🛒</div>
+          <p>No orders found{% if search %} for "{{ search }}"{% endif %}{% if order_status_filter %} with status "{{ order_status_filter }}"{% endif %}.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ══ APPOINTMENTS TAB ══ -->
+    <div class="tab-panel" id="panel-appointments">
+      <div class="filter-row">
+        <span class="filter-label">Filter:</span>
+        <a href="?{% if search %}search={{ search }}&{% endif %}" class="filter-btn {% if not appt_confirmed_filter %}active{% endif %}">All</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}appt_confirmed=pending" class="filter-btn red {% if appt_confirmed_filter == 'pending' %}active{% endif %}">🔴 Pending Confirmation</a>
+        <a href="?{% if search %}search={{ search }}&{% endif %}appt_confirmed=confirmed" class="filter-btn green {% if appt_confirmed_filter == 'confirmed' %}active{% endif %}">🟢 Confirmed</a>
+      </div>
+
+      <div class="table-wrap">
+        <div class="table-header">
+          <h3>📅 Appointments ({{ appointments|length }})</h3>
+        </div>
+        {% if appointments %}
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Patient</th>
+                <th>Service</th>
+                <th>Date & Time</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appt in appointments %}
+              <tr>
+                <td><strong style="color:var(--primary);">#{{ appt.id }}</strong></td>
+                <td>
+                  <div class="td-name">{{ appt.name }}</div>
+                  <div class="td-sub">📱 {{ appt.phone }}</div>
+                  {% if appt.email %}<div class="td-sub">✉️ {{ appt.email }}</div>{% endif %}
+                  {% if appt.customer %}<div class="td-sub" style="color:var(--primary);">👤 Registered User</div>{% else %}<div class="td-sub">Guest</div>{% endif %}
+                </td>
+                <td>
+                  <span style="font-weight:700;color:var(--text-dark);">{{ appt.get_service_type_display }}</span>
+                  {% if appt.notes %}<div class="td-sub">📝 {{ appt.notes|truncatechars:50 }}</div>{% endif %}
+                </td>
+                <td style="white-space:nowrap;">
+                  <strong>{{ appt.preferred_date|date:"d M Y" }}</strong><br>
+                  <span class="td-sub">🕐 {{ appt.preferred_time }}</span><br>
+                  <span class="td-sub">Booked: {{ appt.created_at|date:"d M" }}</span>
+                </td>
+                <td>
+                  {% if appt.is_confirmed %}
+                  <span class="badge badge-yes">✅ Confirmed</span>
+                  {% else %}
+                  <span class="badge badge-no">⏳ Pending</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if not appt.is_confirmed %}
+                  <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="confirm_appointment" />
+                    <input type="hidden" name="appt_id" value="{{ appt.id }}" />
+                    <button type="submit" class="confirm-btn">✅ Confirm</button>
+                  </form>
+                  {% else %}
+                  <span class="confirmed-tag"><i class="fas fa-check-circle"></i> Done</span>
+                  {% endif %}
+                </td>
+                <td>
+                  <a href="tel:{{ appt.phone }}" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:var(--primary-light);color:var(--primary);border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;margin-bottom:4px;">
+                    <i class="fas fa-phone-alt"></i> Call
+                  </a><br>
+                  <a href="https://wa.me/91{{ appt.phone }}?text=Hi%20{{ appt.name|urlencode }}%20ji!%20Your%20appointment%20%23{{ appt.id }}%20on%20{{ appt.preferred_date }}%20at%20{{ appt.preferred_time|urlencode }}%20is%20confirmed.%20Please%20visit%20Shop%20No.%206%2C%20Nayab%20Market%2C%20Pratapgarh." target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:#f0fff4;color:#276749;border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;">
+                    <i class="fab fa-whatsapp"></i> WA
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">📅</div>
+          <p>No appointments found{% if search %} for "{{ search }}"{% endif %}.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ══ CUSTOMERS TAB ══ -->
+    <div class="tab-panel" id="panel-customers">
+      <div class="table-wrap">
+        <div class="table-header">
+          <h3>👥 Registered Customers ({{ customers|length }})</h3>
+        </div>
+        {% if customers %}
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>#ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>City</th>
+                <th>Joined</th>
+                <th>Orders</th>
+                <th>Appointments</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for cust in customers %}
+              <tr>
+                <td><strong style="color:var(--primary);">#{{ cust.id }}</strong></td>
+                <td><div class="td-name">{{ cust.name }}</div></td>
+                <td class="td-phone"><a href="tel:{{ cust.phone }}">{{ cust.phone }}</a></td>
+                <td>
+                  {% if cust.email %}<a href="mailto:{{ cust.email }}" style="color:var(--primary);font-weight:600;font-size:0.85rem;text-decoration:none;">{{ cust.email }}</a>{% else %}<span class="td-sub">—</span>{% endif %}
+                </td>
+                <td>
+                  {% if cust.city %}{{ cust.city }}{% if cust.pincode %} {{ cust.pincode }}{% endif %}{% else %}<span class="td-sub">—</span>{% endif %}
+                </td>
+                <td style="white-space:nowrap;">{{ cust.created_at|date:"d M Y" }}</td>
+                <td>
+                  <span style="font-weight:800;color:var(--primary);">{{ cust.orders.count }}</span>
+                </td>
+                <td>
+                  <span style="font-weight:800;color:var(--accent);">{{ cust.appointment_set.count }}</span>
+                </td>
+                <td>
+                  <a href="https://wa.me/91{{ cust.phone }}?text=Hi%20{{ cust.name|urlencode }}%20ji!%20Eye%20Drishti%20Optical%20se%20bol%20rahe%20hain." target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:#f0fff4;color:#276749;border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;">
+                    <i class="fab fa-whatsapp"></i> WA
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">👥</div>
+          <p>No customers registered yet{% if search %} matching "{{ search }}"{% endif %}.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- ══ INQUIRIES TAB ══ -->
+    <div class="tab-panel" id="panel-inquiries">
+      <div class="table-wrap" style="padding:22px;">
+        <div class="table-header" style="border:none;padding:0 0 16px 0;background:transparent;">
+          <h3>✉️ Contact Inquiries ({{ inquiries|length }})</h3>
+        </div>
+        {% if inquiries %}
+          {% for inq in inquiries %}
+          <div class="inq-card">
+            <div class="inq-header">
+              <div>
+                <div class="inq-name">{{ inq.name }}</div>
+                <div class="td-sub">📱 <a href="tel:{{ inq.phone }}" style="color:var(--primary);font-weight:700;text-decoration:none;">{{ inq.phone }}</a>
+                  {% if inq.email %} · ✉️ {{ inq.email }}{% endif %}
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="inq-date">{{ inq.created_at|date:"d M Y, h:i A" }}</span>
+                <a href="https://wa.me/91{{ inq.phone }}?text=Hi%20{{ inq.name|urlencode }}%20ji!%20Eye%20Drishti%20Optical%20se%20bol%20rahe%20hain.%20Aapke%20inquiry%20ke%20baare%20mein%20baat%20karni%20thi." target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:5px 12px;background:#f0fff4;color:#276749;border-radius:7px;font-weight:700;font-size:0.78rem;text-decoration:none;">
+                  <i class="fab fa-whatsapp"></i> Reply
+                </a>
+              </div>
+            </div>
+            <div class="inq-msg">{{ inq.message }}</div>
+          </div>
+          {% endfor %}
+        {% else %}
+        <div class="empty-state">
+          <div class="empty-icon">✉️</div>
+          <p>No inquiries yet.</p>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div><!-- /page-content -->
+</div><!-- /main -->
+
+<script>
+  // Live clock
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('topbarTime').textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+  }
+  updateClock(); setInterval(updateClock, 30000);
+
+  // Tab switching
+  const TABS = ['orders', 'appointments', 'customers', 'inquiries'];
+  function switchTab(name) {
+    TABS.forEach(t => {
+      document.getElementById('panel-' + t).classList.toggle('active', t === name);
+      const tabEl = document.getElementById('tab-' + t);
+      if (tabEl) tabEl.classList.toggle('active', t === name);
+      const navEl = document.getElementById('nav-' + t);
+      if (navEl) navEl.classList.toggle('active', t === name);
+    });
+    // Save active tab in sessionStorage so page retains tab after form POST
+    sessionStorage.setItem('adminActiveTab', name);
+  }
+
+  // Restore tab after page reload (e.g. after status update POST)
+  const savedTab = sessionStorage.getItem('adminActiveTab');
+  if (savedTab) switchTab(savedTab);
+
+  // Mobile sidebar
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById('mobileOverlay').classList.toggle('open');
+  }
+  function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('mobileOverlay').classList.remove('open');
+  }
+
+  // Auto-dismiss messages
+  setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(a => a.style.opacity = '0');
+  }, 5000);
+</script>
+</body>
+</html>

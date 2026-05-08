@@ -1,0 +1,2032 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eye Drishti Optical – Best Optician in Pratapgarh UP | Eye Checkup & Eyewear</title>
+  <meta name="description" content="Eye Drishti Optical – Trusted optician in Pratapgarh, Uttar Pradesh. Affordable eyeglasses, sunglasses, contact lenses, eye checkup. Rated 4.7★. Call +91 90447 90354." />
+  <meta name="keywords" content="optician in Pratapgarh, eye checkup Pratapgarh, eyeglasses Pratapgarh, optical shop Pratapgarh UP, contact lenses Pratapgarh, affordable eyewear UP, eye drishti optical, चश्मा प्रतापगढ़" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="Eye Drishti Optical – Clear Vision, Better Life" />
+  <meta property="og:description" content="Best optical shop in Pratapgarh UP. Eye checkup, frames, lenses & more. Rated 4.7★ on Google." />
+  <meta property="og:type" content="website" />
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"LocalBusiness",
+    "name":"Eye Drishti Optical",
+    "description":"Trusted optician in Pratapgarh offering eyeglasses, sunglasses, contact lenses and eye checkup services.",
+    "telephone":"+919044790354",
+    "address":{"@type":"PostalAddress","streetAddress":"Shop No. 6, Nayab Market, Kachahri Road","addressLocality":"Pratapgarh","addressRegion":"Uttar Pradesh","postalCode":"230001","addressCountry":"IN"},
+    "openingHours":"Mo-Sa 10:00-20:00",
+    "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.7","reviewCount":"200"}
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --navy: #050D1A;
+      --navy-mid: #0A1628;
+      --navy-light: #0F2040;
+      --blue: #1249A0;
+      --blue-bright: #1A6CF6;
+      --cyan: #00D4F5;
+      --cyan-dim: #0099CC;
+      --gold: #E8B84B;
+      --gold-light: #F5D080;
+      --white: #FFFFFF;
+      --off-white: #F0F4FF;
+      --text-light: rgba(255,255,255,0.88);
+      --text-dim: rgba(255,255,255,0.55);
+      --surface-glass: rgba(255,255,255,0.04);
+      --border-glass: rgba(255,255,255,0.10);
+      --border-blue: rgba(26,108,246,0.25);
+      --shadow-blue: 0 20px 60px rgba(26,108,246,0.25);
+      --shadow-cyan: 0 10px 40px rgba(0,212,245,0.20);
+      --r: 14px;
+      --r-lg: 24px;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--navy);
+      color: var(--text-light);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    /* ── CURSOR ── */
+    .cursor { display: none; }
+    @media (pointer: fine) {
+      .cursor {
+        display: block; position: fixed; pointer-events: none; z-index: 9999;
+        width: 20px; height: 20px; border: 2px solid var(--cyan);
+        border-radius: 50%; transform: translate(-50%,-50%);
+        transition: transform 0.15s, width 0.2s, height 0.2s, border-color 0.2s;
+        mix-blend-mode: screen;
+      }
+      .cursor-dot {
+        display: block; position: fixed; pointer-events: none; z-index: 9999;
+        width: 4px; height: 4px; background: var(--cyan);
+        border-radius: 50%; transform: translate(-50%,-50%);
+      }
+      .cursor.hover { width: 40px; height: 40px; border-color: var(--gold); opacity: 0.7; }
+    }
+
+    /* ── SCROLL PROGRESS ── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0; height: 3px; z-index: 9998;
+      background: linear-gradient(90deg, var(--cyan), var(--gold));
+      width: 0%; transition: width 0.1s;
+    }
+
+    /* ── NAV ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 5%; display: flex; align-items: center; justify-content: space-between;
+      height: 72px; transition: all 0.4s;
+    }
+    #navbar.scrolled {
+      background: rgba(5,13,26,0.96);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-glass);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.4);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 46px; height: 46px;
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; color: white;
+      box-shadow: 0 4px 20px rgba(26,108,246,0.4);
+      position: relative; overflow: hidden;
+    }
+    .nav-logo-icon::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    }
+    .nav-logo-text strong {
+      display: block; font-family: var(--font-display);
+      font-size: 1.15rem; color: var(--white); font-weight: 700; line-height: 1.2;
+    }
+    .nav-logo-text span { font-size: 0.68rem; color: var(--cyan); letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .nav-links { display: flex; align-items: center; gap: 30px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.88rem; font-weight: 500;
+      color: var(--text-dim); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .nav-status {
+      display: flex; align-items: center; gap: 7px;
+      background: rgba(0,212,245,0.1); border: 1px solid rgba(0,212,245,0.2);
+      padding: 5px 12px; border-radius: 50px; font-size: 0.75rem;
+    }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e; animation: pulse-dot 2s infinite;
+    }
+    .status-dot.closed { background: #ef4444; animation: none; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan-dim));
+      color: white !important; padding: 10px 22px; border-radius: 50px;
+      font-weight: 700 !important; font-size: 0.85rem !important;
+      box-shadow: 0 4px 20px rgba(26,108,246,0.35);
+      transition: transform 0.2s, box-shadow 0.2s !important;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgba(26,108,246,0.5) !important; color: white !important; }
+
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 8px; border: none; background: none; z-index: 1001;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: white; border-radius: 2px; transition: all 0.3s; }
+
+    @media (max-width: 900px) {
+      .hamburger { display: flex; }
+      .nav-status { display: none; }
+      .nav-links {
+        position: fixed; inset: 0; background: rgba(5,13,26,0.98);
+        flex-direction: column; justify-content: center; gap: 32px;
+        opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        backdrop-filter: blur(20px);
+      }
+      .nav-links.open { opacity: 1; pointer-events: all; }
+      .nav-links a { font-size: 1.2rem; color: var(--text-light); }
+      .nav-cta { font-size: 1rem !important; padding: 14px 32px; }
+    }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+      padding: 80px 5% 60px;
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 40%, rgba(26,108,246,0.15) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,212,245,0.08) 0%, transparent 60%),
+                  var(--navy);
+    }
+
+    .hero-grid-lines {
+      position: absolute; inset: 0; z-index: 1; opacity: 0.04;
+      background-image:
+        linear-gradient(rgba(0,212,245,1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,245,1) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+
+    .hero-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(80px); pointer-events: none;
+    }
+    .hero-orb-1 { width: 600px; height: 600px; background: rgba(26,108,246,0.12); top: -150px; right: -100px; }
+    .hero-orb-2 { width: 400px; height: 400px; background: rgba(0,212,245,0.08); bottom: -100px; left: -80px; }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center; max-width: 1200px; margin: 0 auto; width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(0,212,245,0.08); border: 1px solid rgba(0,212,245,0.2);
+      color: var(--cyan); padding: 7px 16px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+      color: var(--white); line-height: 1.1; font-weight: 700;
+      margin-bottom: 22px;
+    }
+    .hero-title .line-accent { color: var(--cyan); display: block; }
+    .hero-title .line-gold { color: var(--gold); }
+
+    .hero-subtitle {
+      color: var(--text-dim); font-size: 1.05rem;
+      max-width: 450px; margin-bottom: 40px; line-height: 1.75;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan-dim));
+      color: white; padding: 15px 30px; border-radius: 50px;
+      font-weight: 700; font-size: 0.95rem; text-decoration: none;
+      box-shadow: 0 8px 30px rgba(26,108,246,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(26,108,246,0.55); }
+    .btn-primary:hover::before { opacity: 1; }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 9px;
+      border: 1.5px solid var(--border-glass); color: var(--text-light);
+      padding: 14px 28px; border-radius: 50px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      transition: all 0.2s; backdrop-filter: blur(8px);
+      background: rgba(255,255,255,0.04);
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,245,0.06); }
+
+    .hero-metrics {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .metric-card {
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r); padding: 20px 18px;
+      text-align: center; transition: border-color 0.3s;
+      backdrop-filter: blur(10px);
+    }
+    .metric-card:hover { border-color: rgba(0,212,245,0.3); }
+    .metric-num {
+      font-family: var(--font-display); font-size: 2.2rem; font-weight: 700;
+      color: var(--white); line-height: 1; margin-bottom: 4px;
+    }
+    .metric-num span { color: var(--cyan); }
+    .metric-label { font-size: 0.75rem; color: var(--text-dim); font-weight: 500; }
+
+    /* Right side — 3D Glasses Showcase */
+    .hero-visual {
+      position: relative; display: flex; align-items: center; justify-content: center;
+    }
+    .glasses-showcase {
+      position: relative; width: 100%; max-width: 500px;
+    }
+    .glasses-main {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass);
+      border-radius: var(--r-lg); padding: 48px 40px;
+      text-align: center; position: relative; overflow: hidden;
+      backdrop-filter: blur(20px);
+    }
+    .glasses-main::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(26,108,246,0.12), transparent 70%);
+    }
+    .glasses-svg {
+      width: 280px; height: auto; margin: 0 auto;
+      filter: drop-shadow(0 20px 40px rgba(0,212,245,0.25));
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    .glasses-badges {
+      display: flex; gap: 10px; justify-content: center; margin-top: 28px; flex-wrap: wrap;
+    }
+    .g-badge {
+      background: rgba(26,108,246,0.15); border: 1px solid rgba(26,108,246,0.3);
+      color: #7EB8FF; padding: 6px 14px; border-radius: 50px;
+      font-size: 0.74rem; font-weight: 600;
+    }
+
+    .floating-card {
+      position: absolute; background: var(--navy-mid);
+      border: 1px solid var(--border-glass); border-radius: var(--r);
+      padding: 12px 16px; backdrop-filter: blur(20px);
+    }
+    .floating-card-1 { top: 10%; left: -15%; animation: float2 5s 1s ease-in-out infinite; }
+    .floating-card-2 { bottom: 15%; right: -10%; animation: float2 5s 0.5s ease-in-out infinite; }
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .fc-label { font-size: 0.68rem; color: var(--text-dim); margin-bottom: 2px; }
+    .fc-val { font-size: 0.88rem; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 5px; }
+    .fc-val i { color: var(--gold); font-size: 0.8rem; }
+
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 50px; }
+      .hero-visual { order: -1; }
+      .glasses-showcase { max-width: 360px; margin: 0 auto; }
+      .floating-card-1 { display: none; }
+      .floating-card-2 { display: none; }
+      .hero-metrics { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    }
+    @media (max-width: 500px) {
+      .hero-metrics { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── TICKER ── */
+    .ticker-wrap {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--blue-bright) 50%, var(--cyan-dim) 100%);
+      overflow: hidden; padding: 12px 0;
+    }
+    .ticker-inner { display: flex; gap: 0; animation: ticker 30s linear infinite; width: max-content; }
+    .ticker-item { padding: 0 40px; font-size: 0.82rem; font-weight: 600; white-space: nowrap; color: white; }
+    .ticker-item i { margin-right: 8px; color: rgba(255,255,255,0.7); }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 5%; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-header { margin-bottom: 60px; }
+    .section-header.center { text-align: center; }
+    .section-tag {
+      display: inline-block; font-size: 0.74rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 14px;
+      position: relative; padding-left: 20px;
+    }
+    .section-tag::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      width: 12px; height: 2px; background: var(--cyan); transform: translateY(-50%);
+    }
+    .section-header.center .section-tag::before { display: none; }
+    .section-header.center .section-tag { padding-left: 0; }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--white); font-weight: 700; line-height: 1.15;
+    }
+    .section-title em { font-style: italic; color: var(--cyan); }
+    .section-sub { margin-top: 14px; color: var(--text-dim); font-size: 1rem; max-width: 560px; }
+    .section-header.center .section-sub { margin: 14px auto 0; }
+
+    /* ── FADE ANIMATION ── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .fade-up.delay-1 { transition-delay: 0.1s; }
+    .fade-up.delay-2 { transition-delay: 0.2s; }
+    .fade-up.delay-3 { transition-delay: 0.3s; }
+    .fade-up.delay-4 { transition-delay: 0.4s; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--navy-mid); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
+    }
+    .about-visual { position: relative; }
+    .about-img-wrap {
+      border-radius: var(--r-lg); overflow: hidden;
+      background: linear-gradient(135deg, #0A1628, #0F2040);
+      border: 1px solid var(--border-glass); position: relative;
+      aspect-ratio: 4/3;
+    }
+    .about-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      mix-blend-mode: luminosity; opacity: 0.7;
+    }
+    .about-img-wrap .img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,108,246,0.2), rgba(0,212,245,0.1));
+    }
+    .about-store-badge {
+      position: absolute; bottom: -20px; right: -20px;
+      background: linear-gradient(135deg, var(--gold), #F5A623);
+      color: var(--navy); padding: 18px 22px; border-radius: var(--r);
+      text-align: center; font-weight: 800;
+      box-shadow: 0 10px 40px rgba(232,184,75,0.4);
+    }
+    .about-store-badge .ab-num {
+      font-family: var(--font-display); font-size: 2rem; line-height: 1; display: block;
+    }
+    .about-store-badge .ab-label { font-size: 0.72rem; letter-spacing: 0.05em; margin-top: 2px; display: block; }
+
+    .about-content h2 { font-family: var(--font-display); font-size: 2.5rem; color: var(--white); margin-bottom: 18px; }
+    .about-content p { color: var(--text-dim); margin-bottom: 20px; line-height: 1.8; }
+    .about-content p strong { color: var(--text-light); }
+
+    .about-pills { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 30px; }
+    .pill {
+      background: rgba(26,108,246,0.1); border: 1px solid rgba(26,108,246,0.25);
+      color: #7EB8FF; padding: 7px 16px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+    }
+
+    .about-certs {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .cert-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r-sm, 10px); padding: 12px;
+    }
+    .cert-item i { color: var(--cyan); font-size: 1.1rem; }
+    .cert-item span { font-size: 0.82rem; color: var(--text-dim); }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .about-store-badge { bottom: -12px; right: 12px; }
+    }
+
+    /* ── PRODUCTS ── */
+    #products { background: var(--navy); }
+    .product-filters {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px;
+    }
+    .filter-btn {
+      padding: 8px 20px; border-radius: 50px;
+      border: 1.5px solid var(--border-glass);
+      background: transparent; color: var(--text-dim);
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: rgba(26,108,246,0.15); border-color: var(--blue-bright);
+      color: var(--white);
+    }
+
+    .products-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;
+    }
+    .product-card {
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r-lg); overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .product-card:hover {
+      transform: translateY(-6px); border-color: rgba(0,212,245,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .product-img {
+      aspect-ratio: 4/3; background: linear-gradient(135deg, #0A1628, #0F2040);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .product-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s;
+      mix-blend-mode: luminosity; opacity: 0.8;
+    }
+    .product-card:hover .product-img img { transform: scale(1.05); }
+    .product-img-icon {
+      font-size: 3.5rem; color: rgba(26,108,246,0.3);
+      position: absolute;
+    }
+    .product-tag-badge {
+      position: absolute; top: 14px; left: 14px;
+      background: rgba(0,212,245,0.15); border: 1px solid rgba(0,212,245,0.3);
+      color: var(--cyan); padding: 4px 12px; border-radius: 50px;
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .product-badge-hot {
+      background: rgba(232,184,75,0.15); border-color: rgba(232,184,75,0.3); color: var(--gold);
+    }
+    .product-info { padding: 22px; }
+    .product-category { font-size: 0.72rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; margin-bottom: 6px; }
+    .product-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--white); margin-bottom: 8px; }
+    .product-desc { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 16px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price { font-family: var(--font-display); font-size: 1.3rem; color: var(--cyan); font-weight: 600; }
+    .product-cta {
+      background: rgba(26,108,246,0.15); border: 1px solid rgba(26,108,246,0.3);
+      color: #7EB8FF; padding: 7px 16px; border-radius: 50px;
+      font-size: 0.78rem; font-weight: 700; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .product-cta:hover { background: rgba(26,108,246,0.3); border-color: var(--blue-bright); color: white; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--navy-mid); }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;
+    }
+    .service-card {
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r-lg); padding: 36px 30px;
+      transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(26,108,246,0.08), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .service-card:hover { border-color: rgba(0,212,245,0.3); transform: translateY(-4px); }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 60px; height: 60px; border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 22px;
+      position: relative;
+    }
+    .service-icon-1 { background: rgba(26,108,246,0.15); color: #7EB8FF; }
+    .service-icon-2 { background: rgba(0,212,245,0.12); color: var(--cyan); }
+    .service-icon-3 { background: rgba(232,184,75,0.12); color: var(--gold); }
+    .service-icon-4 { background: rgba(34,197,94,0.12); color: #4ADE80; }
+    .service-icon-5 { background: rgba(168,85,247,0.12); color: #C084FC; }
+    .service-icon-6 { background: rgba(239,68,68,0.12); color: #F87171; }
+    .service-title { font-family: var(--font-display); font-size: 1.3rem; color: var(--white); margin-bottom: 10px; }
+    .service-desc { font-size: 0.85rem; color: var(--text-dim); line-height: 1.7; }
+    .service-price {
+      margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border-glass);
+      font-size: 0.82rem; color: var(--text-dim);
+    }
+    .service-price strong { color: var(--cyan); font-size: 1rem; }
+
+    /* ── EYE TEST BOOKING ── */
+    #booking {
+      background: linear-gradient(135deg, #060E1F 0%, #0A1628 50%, #0F1A30 100%);
+      position: relative; overflow: hidden;
+    }
+    .booking-glow {
+      position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none;
+    }
+    .booking-glow-1 { width: 400px; height: 400px; background: rgba(26,108,246,0.12); top: -100px; right: 0; }
+    .booking-glow-2 { width: 300px; height: 300px; background: rgba(0,212,245,0.08); bottom: -80px; left: 0; }
+    .booking-inner {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .booking-content .section-title { margin-bottom: 20px; }
+    .booking-perks { margin: 30px 0; }
+    .booking-perk {
+      display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px;
+    }
+    .perk-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: rgba(0,212,245,0.1); border: 1px solid rgba(0,212,245,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 0.9rem; flex-shrink: 0; margin-top: 2px;
+    }
+    .perk-text strong { display: block; font-size: 0.92rem; color: var(--white); margin-bottom: 3px; }
+    .perk-text span { font-size: 0.82rem; color: var(--text-dim); }
+
+    .booking-form {
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border-glass);
+      border-radius: var(--r-lg); padding: 40px;
+      backdrop-filter: blur(20px);
+    }
+    .booking-form h3 {
+      font-family: var(--font-display); font-size: 1.5rem; color: var(--white); margin-bottom: 24px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--text-dim); margin-bottom: 7px; font-weight: 600; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border-glass);
+      border-radius: var(--r); padding: 12px 16px;
+      color: var(--text-light); font-family: var(--font-body); font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue-bright); }
+    .form-group select option { background: var(--navy-mid); }
+    .form-group textarea { height: 100px; resize: vertical; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, var(--blue-bright), var(--cyan-dim));
+      color: white; border: none; padding: 15px; border-radius: var(--r);
+      font-family: var(--font-body); font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(26,108,246,0.35);
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(26,108,246,0.5); }
+
+    .alert {
+      padding: 12px 18px; border-radius: var(--r); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 10px; font-size: 0.9rem;
+    }
+    .alert-success { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.25); color: #4ADE80; }
+    .alert-error { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.25); color: #F87171; }
+
+    @media (max-width: 768px) { .booking-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+    /* ── BRANDS / GALLERY ── */
+    #gallery { background: var(--navy); }
+    .brands-strip {
+      display: flex; align-items: center; gap: 0;
+      overflow: hidden; margin-bottom: 60px;
+      border-top: 1px solid var(--border-glass);
+      border-bottom: 1px solid var(--border-glass);
+      padding: 20px 0;
+    }
+    .brands-inner { display: flex; gap: 60px; animation: ticker 20s linear infinite; width: max-content; }
+    .brand-item {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 600;
+      color: var(--text-dim); white-space: nowrap; transition: color 0.3s;
+      letter-spacing: 0.05em;
+    }
+    .brand-item:hover { color: var(--white); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 16px;
+    }
+    .gallery-item {
+      border-radius: var(--r); overflow: hidden; position: relative;
+      background: linear-gradient(135deg, #0A1628, #0F2040);
+      border: 1px solid var(--border-glass);
+      transition: transform 0.3s;
+    }
+    .gallery-item:hover { transform: scale(1.02); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; mix-blend-mode: luminosity; display: block; }
+    .gallery-item .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,13,26,0.8), transparent);
+      display: flex; align-items: flex-end; padding: 16px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { font-size: 0.8rem; color: white; font-weight: 600; }
+    .gallery-item-placeholder {
+      width: 100%; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+    }
+    .gallery-item-placeholder i { font-size: 2.5rem; color: rgba(26,108,246,0.4); }
+    .gallery-item-placeholder span { font-size: 0.75rem; color: var(--text-dim); font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+    }
+
+    /* ── REVIEWS ── */
+    #reviews { background: var(--navy-mid); }
+    .rating-hero {
+      display: grid; grid-template-columns: auto 1fr; gap: 50px;
+      align-items: center; margin-bottom: 60px;
+      padding: 40px; border-radius: var(--r-lg);
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+    }
+    .rating-big {
+      text-align: center; padding-right: 50px; border-right: 1px solid var(--border-glass);
+    }
+    .rating-number {
+      font-family: var(--font-display); font-size: 6rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .rating-stars { color: var(--gold); font-size: 1.4rem; margin: 8px 0; letter-spacing: 3px; }
+    .rating-source { font-size: 0.78rem; color: var(--text-dim); }
+    .rating-bars { flex: 1; }
+    .rb-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 10px;
+    }
+    .rb-label { font-size: 0.8rem; color: var(--text-dim); width: 40px; text-align: right; flex-shrink: 0; }
+    .rb-track { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 6px; overflow: hidden; }
+    .rb-fill { height: 100%; background: linear-gradient(90deg, var(--blue-bright), var(--cyan)); border-radius: 6px; width: 0; transition: width 1.5s 0.3s; }
+    .rb-count { font-size: 0.78rem; color: var(--text-dim); width: 30px; flex-shrink: 0; }
+
+    @media (max-width: 640px) {
+      .rating-hero { grid-template-columns: 1fr; }
+      .rating-big { border-right: none; border-bottom: 1px solid var(--border-glass); padding: 0 0 24px; }
+    }
+
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 22px; }
+    .review-card {
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r-lg); padding: 28px; transition: border-color 0.3s;
+    }
+    .review-card:hover { border-color: rgba(232,184,75,0.25); }
+    .review-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+    .review-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: white;
+      flex-shrink: 0;
+    }
+    .av-1 { background: linear-gradient(135deg, #1A6CF6, #00D4F5); }
+    .av-2 { background: linear-gradient(135deg, #E8B84B, #F5A623); }
+    .av-3 { background: linear-gradient(135deg, #A855F7, #EC4899); }
+    .av-4 { background: linear-gradient(135deg, #22C55E, #0EA5E9); }
+    .av-5 { background: linear-gradient(135deg, #F87171, #FB923C); }
+    .av-6 { background: linear-gradient(135deg, #0EA5E9, #8B5CF6); }
+    .review-meta strong { display: block; font-size: 0.92rem; color: var(--white); }
+    .review-meta span { font-size: 0.75rem; color: var(--text-dim); }
+    .review-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 12px; }
+    .review-text { font-size: 0.88rem; color: var(--text-dim); line-height: 1.7; font-style: italic; }
+    .review-verified { margin-top: 14px; font-size: 0.72rem; color: #4ADE80; display: flex; align-items: center; gap: 5px; }
+
+    /* ── FAQ ── */
+    #faq { background: var(--navy); }
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .faq-item {
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r); overflow: hidden; transition: border-color 0.2s;
+    }
+    .faq-item.open { border-color: rgba(0,212,245,0.3); }
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 22px; cursor: pointer; gap: 12px;
+    }
+    .faq-q span { font-size: 0.92rem; font-weight: 600; color: var(--text-light); line-height: 1.4; }
+    .faq-q i { color: var(--text-dim); transition: transform 0.3s, color 0.2s; flex-shrink: 0; }
+    .faq-item.open .faq-q i { transform: rotate(45deg); color: var(--cyan); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 22px; color: var(--text-dim); font-size: 0.86rem; line-height: 1.75;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding: 0 22px 20px; }
+
+    @media (max-width: 640px) { .faq-grid { grid-template-columns: 1fr; } }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--navy-mid); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+    .contact-info h3 { font-family: var(--font-display); font-size: 1.6rem; color: var(--white); margin-bottom: 12px; }
+    .contact-info > p { color: var(--text-dim); margin-bottom: 30px; }
+    .contact-items { display: flex; flex-direction: column; gap: 18px; margin-bottom: 30px; }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--surface-glass); border: 1px solid var(--border-glass);
+      border-radius: var(--r); padding: 16px 18px; transition: border-color 0.2s;
+    }
+    .contact-item:hover { border-color: rgba(0,212,245,0.25); }
+    .contact-item-icon {
+      width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(0,212,245,0.1); border: 1px solid rgba(0,212,245,0.2);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 0.95rem;
+    }
+    .contact-item-body strong { display: block; font-size: 0.78rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+    .contact-item-body a, .contact-item-body span {
+      font-size: 0.9rem; color: var(--text-light); text-decoration: none; line-height: 1.5;
+    }
+    .contact-item-body a:hover { color: var(--cyan); }
+
+    .map-embed {
+      border-radius: var(--r-lg); overflow: hidden;
+      border: 1px solid var(--border-glass); height: 220px;
+      position: relative;
+    }
+    .map-embed iframe { width: 100%; height: 100%; border: none; filter: invert(90%) hue-rotate(180deg); }
+
+    .contact-form-wrap h3 { font-family: var(--font-display); font-size: 1.6rem; color: var(--white); margin-bottom: 24px; }
+
+    @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); border-top: 1px solid var(--border-glass);
+      padding: 70px 5% 30px;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid var(--border-glass);
+    }
+    .footer-brand p { font-size: 0.85rem; color: var(--text-dim); line-height: 1.75; margin: 18px 0 24px; }
+    .footer-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+    .footer-logo-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--blue-bright), var(--cyan-dim));
+      display: flex; align-items: center; justify-content: center; color: white; font-size: 18px;
+    }
+    .footer-logo strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--white); }
+    .footer-social { display: flex; gap: 10px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1.5px solid var(--border-glass);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-dim); text-decoration: none; font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .footer-social a:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,245,0.08); }
+    .footer-col h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-dim); font-weight: 700; margin-bottom: 20px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { text-decoration: none; font-size: 0.85rem; color: var(--text-dim); transition: color 0.2s; }
+    .footer-col ul li a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1200px; margin: 28px auto 0;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.8rem; color: var(--text-dim); flex-wrap: wrap; gap: 10px;
+    }
+    .footer-bottom a { color: var(--text-dim); text-decoration: none; }
+    .footer-bottom a:hover { color: var(--cyan); }
+
+    @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; } }
+    @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+
+    /* ── FLOATING ACTIONS ── */
+    .floating-actions { position: fixed; bottom: 28px; right: 28px; z-index: 900; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+    .float-btn {
+      width: 54px; height: 54px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; text-decoration: none; color: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .float-btn:hover { transform: scale(1.1); }
+    .float-whatsapp { background: #25D366; }
+    .float-call { background: linear-gradient(135deg, var(--blue-bright), var(--cyan-dim)); }
+    .float-tooltip {
+      position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+      background: var(--navy-mid); color: white; padding: 5px 12px; border-radius: 50px;
+      font-size: 0.75rem; font-weight: 600; white-space: nowrap;
+      border: 1px solid var(--border-glass);
+      opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    }
+    .float-btn:hover .float-tooltip { opacity: 1; }
+
+    #scrollTop {
+      position: fixed; bottom: 28px; left: 28px; z-index: 900;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--surface-glass); border: 1.5px solid var(--border-glass);
+      color: var(--text-dim); cursor: pointer; font-size: 0.9rem;
+      opacity: 0; pointer-events: none; transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    #scrollTop.visible { opacity: 1; pointer-events: all; }
+    #scrollTop:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── LENS SIMULATOR ── */
+    #simulator { background: linear-gradient(135deg, var(--navy-mid), var(--navy)); }
+    .sim-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center;
+    }
+    .sim-controls h3 { font-family: var(--font-display); font-size: 2rem; color: var(--white); margin-bottom: 10px; }
+    .sim-controls p { color: var(--text-dim); margin-bottom: 28px; font-size: 0.9rem; }
+    .sim-options { display: flex; flex-direction: column; gap: 20px; }
+    .sim-opt-group label { display: block; font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 10px; }
+    .sim-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sim-chip {
+      padding: 8px 16px; border-radius: 50px;
+      border: 1.5px solid var(--border-glass);
+      background: transparent; color: var(--text-dim);
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .sim-chip.active, .sim-chip:hover { background: rgba(0,212,245,0.12); border-color: var(--cyan); color: var(--cyan); }
+    .sim-canvas-wrap {
+      border-radius: var(--r-lg); overflow: hidden;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border-glass);
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .sim-face-bg {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .sim-face-svg { width: 80%; height: auto; }
+
+    @media (max-width: 768px) { .sim-inner { grid-template-columns: 1fr; } }
+
+    /* ── OFFER BANNER ── */
+    .offer-banner {
+      background: linear-gradient(135deg, rgba(232,184,75,0.12), rgba(232,184,75,0.05));
+      border: 1px solid rgba(232,184,75,0.25); border-radius: var(--r-lg);
+      padding: 28px 36px; display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; margin-bottom: 60px; flex-wrap: wrap;
+    }
+    .offer-left { display: flex; align-items: center; gap: 18px; }
+    .offer-icon { font-size: 2.2rem; }
+    .offer-text strong { display: block; font-family: var(--font-display); font-size: 1.3rem; color: var(--white); }
+    .offer-text span { font-size: 0.85rem; color: var(--text-dim); }
+    .offer-countdown { display: flex; gap: 12px; }
+    .countdown-unit { text-align: center; background: rgba(232,184,75,0.1); border: 1px solid rgba(232,184,75,0.2); border-radius: 10px; padding: 10px 14px; }
+    .countdown-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--gold); line-height: 1; display: block; }
+    .countdown-label { font-size: 0.62rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.1em; }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div id="scroll-progress"></div>
+
+<!-- ─── NAVBAR ─── -->
+<nav id="navbar">
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon"><i class="fas fa-eye"></i></div>
+    <div class="nav-logo-text">
+      <strong>Eye Drishti Optical</strong>
+      <span>Pratapgarh, U.P.</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li>
+      <div class="nav-status">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText" style="color:var(--text-dim);font-weight:600;font-size:0.76rem;"></span>
+      </div>
+    </li>
+    <li><a href="#booking" class="nav-cta">Book Eye Test</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-tag fade-up"><i class="fas fa-star"></i> &nbsp; Rated 4.7★ on Google &nbsp; · &nbsp; Pratapgarh's #1 Optical</div>
+      <h1 class="hero-title fade-up delay-1">
+        See the World<br>with
+        <span class="line-accent">Crystal Clarity</span>
+        <span class="line-gold">& Style</span>
+      </h1>
+      <p class="hero-subtitle fade-up delay-2">
+        Eye Drishti Optical — Pratapgarh's most trusted optical shop. Premium eyewear, expert eye checkups, and honest pricing. <strong style="color:var(--text-light)">आपकी आँखें, हमारी जिम्मेदारी।</strong>
+      </p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="#booking" class="btn-primary">
+          <i class="fas fa-calendar-check"></i> Book Free Eye Test
+        </a>
+        <a href="tel:+919044790354" class="btn-ghost">
+          <i class="fas fa-phone-alt"></i> Call Now
+        </a>
+      </div>
+      <div class="hero-metrics fade-up delay-4">
+        <div class="metric-card">
+          <div class="metric-num">5<span>+</span></div>
+          <div class="metric-label">Years of Trust</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">4.7<span>★</span></div>
+          <div class="metric-label">Google Rating</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-num">2K<span>+</span></div>
+          <div class="metric-label">Happy Customers</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual fade-up delay-2">
+      <div class="glasses-showcase">
+        <!-- Floating mini-cards -->
+        <div class="floating-card floating-card-1">
+          <div class="fc-label">Today's Offer</div>
+          <div class="fc-val"><i class="fas fa-tag"></i> Free Lens Cleaning</div>
+        </div>
+        <div class="floating-card floating-card-2">
+          <div class="fc-label">Store Status</div>
+          <div class="fc-val" id="heroStatus"><i class="fas fa-circle" style="color:#22c55e;font-size:0.6rem"></i> Open Now</div>
+        </div>
+
+        <div class="glasses-main">
+          <!-- SVG Glasses Illustration -->
+          <svg class="glasses-svg" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Bridge -->
+            <path d="M170 100 Q200 88 230 100" stroke="#1A6CF6" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <!-- Left Frame -->
+            <rect x="40" y="65" width="120" height="80" rx="28" fill="rgba(26,108,246,0.12)" stroke="#1A6CF6" stroke-width="4"/>
+            <rect x="40" y="65" width="120" height="80" rx="28" fill="url(#lensGrad)" opacity="0.5"/>
+            <!-- Right Frame -->
+            <rect x="240" y="65" width="120" height="80" rx="28" fill="rgba(26,108,246,0.12)" stroke="#1A6CF6" stroke-width="4"/>
+            <rect x="240" y="65" width="120" height="80" rx="28" fill="url(#lensGrad2)" opacity="0.5"/>
+            <!-- Temples -->
+            <line x1="40" y1="90" x2="10" y2="82" stroke="#1A6CF6" stroke-width="4" stroke-linecap="round"/>
+            <line x1="360" y1="90" x2="390" y2="82" stroke="#1A6CF6" stroke-width="4" stroke-linecap="round"/>
+            <!-- Lens shine -->
+            <ellipse cx="80" cy="85" rx="20" ry="12" fill="rgba(255,255,255,0.12)" transform="rotate(-20 80 85)"/>
+            <ellipse cx="320" cy="85" rx="20" ry="12" fill="rgba(255,255,255,0.12)" transform="rotate(-20 320 85)"/>
+            <!-- Gradient defs -->
+            <defs>
+              <linearGradient id="lensGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1A6CF6" stop-opacity="0.3"/>
+                <stop offset="100%" stop-color="#00D4F5" stop-opacity="0.1"/>
+              </linearGradient>
+              <linearGradient id="lensGrad2" x1="1" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#00D4F5" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#1A6CF6" stop-opacity="0.3"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="glasses-badges">
+            <span class="g-badge">Anti-Glare</span>
+            <span class="g-badge">Blue Light Cut</span>
+            <span class="g-badge">UV400</span>
+            <span class="g-badge">Prescription</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item"><i class="fas fa-glasses"></i> Premium Eyeglasses</span>
+    <span class="ticker-item"><i class="fas fa-sun"></i> Designer Sunglasses</span>
+    <span class="ticker-item"><i class="fas fa-eye"></i> Free Eye Checkup</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> 4.7★ Google Rated</span>
+    <span class="ticker-item"><i class="fas fa-map-marker-alt"></i> Kachahri Road, Pratapgarh</span>
+    <span class="ticker-item"><i class="fas fa-phone-alt"></i> +91 90447 90354</span>
+    <span class="ticker-item"><i class="fas fa-tag"></i> Affordable Prices</span>
+    <span class="ticker-item"><i class="fab fa-whatsapp"></i> WhatsApp Orders</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="ticker-item"><i class="fas fa-glasses"></i> Premium Eyeglasses</span>
+    <span class="ticker-item"><i class="fas fa-sun"></i> Designer Sunglasses</span>
+    <span class="ticker-item"><i class="fas fa-eye"></i> Free Eye Checkup</span>
+    <span class="ticker-item"><i class="fas fa-star"></i> 4.7★ Google Rated</span>
+    <span class="ticker-item"><i class="fas fa-map-marker-alt"></i> Kachahri Road, Pratapgarh</span>
+    <span class="ticker-item"><i class="fas fa-phone-alt"></i> +91 90447 90354</span>
+    <span class="ticker-item"><i class="fas fa-tag"></i> Affordable Prices</span>
+    <span class="ticker-item"><i class="fab fa-whatsapp"></i> WhatsApp Orders</span>
+  </div>
+</div>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual fade-up">
+        <div class="about-img-wrap">
+          <!-- Replace src with your actual store image: {% static 'optical/images/store.jpg' %} -->
+          <div style="width:100%;height:100%;background:linear-gradient(135deg,#0A1628 0%,#0F3060 50%,#0A1A40 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+            <i class="fas fa-store" style="font-size:5rem;color:rgba(26,108,246,0.3)"></i>
+            <span style="font-size:0.8rem;color:var(--text-dim);">Add your store image here</span>
+          </div>
+          <div class="img-overlay"></div>
+        </div>
+        <div class="about-store-badge">
+          <span class="ab-num">5+</span>
+          <span class="ab-label">Years of Trust</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-tag fade-up">About Us</div>
+        <h2 class="fade-up delay-1">Pratapgarh Ka <em style="color:var(--cyan);font-family:var(--font-display);">Apna</em> Optical</h2>
+        <p class="fade-up delay-2">
+          Welcome to <strong>Eye Drishti Optical</strong> — your neighbourhood optical shop at Shop No. 6, Nayab Market, Kachahri Road, near SBI Bank, Pratapgarh. We have been serving the community with premium eyewear and professional eye care since 2019.
+        </p>
+        <p class="fade-up delay-3">
+          We believe quality vision care should be accessible to everyone. Whether you need <strong>prescription glasses, stylish frames, contact lenses</strong>, or a thorough eye checkup — we have you covered at <strong>honest prices.</strong>
+        </p>
+        <div class="about-pills fade-up delay-3">
+          <span class="pill">✓ Expert Optometrist</span>
+          <span class="pill">✓ 500+ Frame Styles</span>
+          <span class="pill">✓ Same Day Delivery</span>
+          <span class="pill">✓ Kids Eyewear</span>
+          <span class="pill">✓ All Budgets</span>
+        </div>
+        <div class="about-certs fade-up delay-4">
+          <div class="cert-item"><i class="fas fa-shield-alt"></i><span>Certified Optometrist</span></div>
+          <div class="cert-item"><i class="fas fa-clock"></i><span>Mon–Sat 10AM–8PM</span></div>
+          <div class="cert-item"><i class="fas fa-award"></i><span>4.7★ Google Rated</span></div>
+          <div class="cert-item"><i class="fas fa-headset"></i><span>WhatsApp Support</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRODUCTS ─── -->
+<section id="products">
+  <div class="section-inner">
+    <div class="offer-banner fade-up">
+      <div class="offer-left">
+        <span class="offer-icon">🎉</span>
+        <div class="offer-text">
+          <strong>Monsoon Special Offer — Flat 20% Off on All Frames!</strong>
+          <span>Use code: <strong style="color:var(--gold)">DRISHTI20</strong> · Walk in or WhatsApp us today</span>
+        </div>
+      </div>
+      <div class="offer-countdown">
+        <div class="countdown-unit"><span class="countdown-num" id="cdH">00</span><span class="countdown-label">HRS</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cdM">00</span><span class="countdown-label">MIN</span></div>
+        <div class="countdown-unit"><span class="countdown-num" id="cdS">00</span><span class="countdown-label">SEC</span></div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-tag">Products</div>
+      <h2 class="section-title fade-up">Our <em>Eyewear</em> Collection</h2>
+      <p class="section-sub fade-up delay-1">Handpicked frames, lenses & accessories for every face, budget, and lifestyle.</p>
+    </div>
+
+    <div class="product-filters fade-up delay-1">
+      <button class="filter-btn active" data-filter="all">All Products</button>
+      <button class="filter-btn" data-filter="eyeglasses">Eyeglasses</button>
+      <button class="filter-btn" data-filter="sunglasses">Sunglasses</button>
+      <button class="filter-btn" data-filter="contact">Contact Lenses</button>
+      <button class="filter-btn" data-filter="kids">Kids Eyewear</button>
+      <button class="filter-btn" data-filter="frames">Designer Frames</button>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+
+      <div class="product-card fade-up" data-cat="eyeglasses">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-glasses"></i></div>
+          <span class="product-tag-badge product-badge-hot">Best Seller</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Eyeglasses</div>
+          <div class="product-name">Full-Rim Classic Frames</div>
+          <div class="product-desc">Durable metal & acetate frames with anti-scratch, anti-reflective coating. Perfect for daily use.</div>
+          <div class="product-footer">
+            <div class="product-price">₹499 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Full-Rim Classic Frames" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up delay-1" data-cat="sunglasses">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-sun"></i></div>
+          <span class="product-tag-badge">UV Protection</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Sunglasses</div>
+          <div class="product-name">Polarized Sunglasses</div>
+          <div class="product-desc">UV400 polarized lenses with sport and fashion styles. Ideal for driving, outdoors, and travel.</div>
+          <div class="product-footer">
+            <div class="product-price">₹799 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Polarized Sunglasses" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up delay-2" data-cat="contact">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-circle-dot"></i></div>
+          <span class="product-tag-badge">Daily / Monthly</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Contact Lenses</div>
+          <div class="product-name">Soft Contact Lenses</div>
+          <div class="product-desc">Daily, monthly, and coloured contact lenses. All major brands available. Fitting consultation included.</div>
+          <div class="product-footer">
+            <div class="product-price">₹299 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Contact Lenses" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up delay-3" data-cat="frames">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-star"></i></div>
+          <span class="product-tag-badge product-badge-hot">Premium</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Designer Frames</div>
+          <div class="product-name">Rimless & Semi-Rim Frames</div>
+          <div class="product-desc">Lightweight titanium and minimalist rimless designs for a sophisticated, modern look.</div>
+          <div class="product-footer">
+            <div class="product-price">₹1,299 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Designer Frames" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up" data-cat="kids">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-child"></i></div>
+          <span class="product-tag-badge">Flexible & Safe</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Kids Eyewear</div>
+          <div class="product-name">Kids Flexible Frames</div>
+          <div class="product-desc">Bendable, impact-resistant frames designed for active kids aged 3–14. Fun colours & styles.</div>
+          <div class="product-footer">
+            <div class="product-price">₹399 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Kids Eyewear" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card fade-up delay-1" data-cat="eyeglasses">
+        <div class="product-img">
+          <div class="product-img-icon"><i class="fas fa-laptop"></i></div>
+          <span class="product-tag-badge">Screen Protection</span>
+        </div>
+        <div class="product-info">
+          <div class="product-category">Eyeglasses</div>
+          <div class="product-name">Blue Light Blocking Glasses</div>
+          <div class="product-desc">Protect your eyes from digital screen fatigue. With or without prescription — ideal for office/school use.</div>
+          <div class="product-footer">
+            <div class="product-price">₹699 onwards</div>
+            <a href="https://wa.me/919044790354?text=I'm interested in Blue Light Glasses" target="_blank" class="product-cta">Enquire</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SERVICES ─── -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Services</div>
+      <h2 class="section-title fade-up">What We <em>Offer</em></h2>
+      <p class="section-sub fade-up delay-1">Complete eye care under one roof — from checkup to your perfect pair of glasses.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <div class="service-icon service-icon-1"><i class="fas fa-eye"></i></div>
+        <div class="service-title">Eye Checkup & Testing</div>
+        <div class="service-desc">Comprehensive eye examination using advanced equipment. Checks for vision problems, eye pressure, and overall eye health. Safe for all ages including kids and seniors.</div>
+        <div class="service-price">Starting <strong>Free</strong> (Basic) · ₹199 (Detailed)</div>
+      </div>
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon service-icon-2"><i class="fas fa-glasses"></i></div>
+        <div class="service-title">Prescription Lens Fitting</div>
+        <div class="service-desc">Precise lens cutting and fitting for all types of frames. Single vision, bifocal, progressive, and photochromic lenses available with anti-glare and UV coating.</div>
+        <div class="service-price">Starting at <strong>₹299</strong> per pair</div>
+      </div>
+      <div class="service-card fade-up delay-2">
+        <div class="service-icon service-icon-3"><i class="fas fa-tools"></i></div>
+        <div class="service-title">Frame Repair & Adjustment</div>
+        <div class="service-desc">Nose pad replacement, hinge repair, temple adjustment, and general frame restoration. We give your old pair a second life — quick turnaround, usually same day.</div>
+        <div class="service-price">Starting at <strong>₹49</strong></div>
+      </div>
+      <div class="service-card fade-up delay-3">
+        <div class="service-icon service-icon-4"><i class="fas fa-circle-dot"></i></div>
+        <div class="service-title">Contact Lens Consultation</div>
+        <div class="service-desc">Trial fitting for soft, rigid, and coloured contact lenses. Get guidance on correct insertion, removal, and hygiene from our trained optometrist.</div>
+        <div class="service-price">Consultation <strong>Free</strong> with purchase</div>
+      </div>
+      <div class="service-card fade-up">
+        <div class="service-icon service-icon-5"><i class="fas fa-child"></i></div>
+        <div class="service-title">Kids Vision Screening</div>
+        <div class="service-desc">Early detection of amblyopia (lazy eye), squint, and myopia in children. Fun, friendly testing process designed to keep kids at ease. School vision certificates provided.</div>
+        <div class="service-price">Screening <strong>Free</strong> for under 12</div>
+      </div>
+      <div class="service-card fade-up delay-1">
+        <div class="service-icon service-icon-6"><i class="fas fa-spray-can"></i></div>
+        <div class="service-title">Lens Cleaning & Polishing</div>
+        <div class="service-desc">Professional ultrasonic cleaning for eyeglasses and sunglasses. We also polish scratches, realign frames, and do complete servicing for your existing pair.</div>
+        <div class="service-price">Starting at <strong>₹29</strong> · Free with purchase</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── BOOKING / APPOINTMENT ─── -->
+<section id="booking">
+  <div class="booking-glow booking-glow-1"></div>
+  <div class="booking-glow booking-glow-2"></div>
+  <div class="section-inner">
+    <div class="booking-inner">
+      <div class="booking-content">
+        <div class="section-tag fade-up">Appointment</div>
+        <h2 class="section-title fade-up delay-1">Book Your <em>Eye Test</em> Today</h2>
+        <p class="fade-up delay-2" style="color:var(--text-dim);margin-bottom:10px;">Walk-ins welcome, but booking ahead saves your time. Our eye test takes only 15–20 minutes.</p>
+        <div class="booking-perks fade-up delay-3">
+          <div class="booking-perk">
+            <div class="perk-icon"><i class="fas fa-check"></i></div>
+            <div class="perk-text">
+              <strong>No Advance Payment</strong>
+              <span>Book your slot without any deposit. Pay only at the store.</span>
+            </div>
+          </div>
+          <div class="booking-perk">
+            <div class="perk-icon"><i class="fas fa-clock"></i></div>
+            <div class="perk-text">
+              <strong>Quick 15-Minute Eye Test</strong>
+              <span>Get your power checked quickly and accurately with modern equipment.</span>
+            </div>
+          </div>
+          <div class="booking-perk">
+            <div class="perk-icon"><i class="fas fa-gift"></i></div>
+            <div class="perk-text">
+              <strong>Free Lens Cleaning on Visit</strong>
+              <span>Bring your old glasses — we clean them for free on every visit.</span>
+            </div>
+          </div>
+          <div class="booking-perk">
+            <div class="perk-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="perk-text">
+              <strong>WhatsApp Confirmation</strong>
+              <span>We'll send you a booking reminder on WhatsApp so you never forget.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form fade-up delay-2">
+        <h3>📅 Book an Appointment</h3>
+
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+              <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <form method="POST" action="{% url 'home' %}#booking">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name *</label>
+              <input type="text" id="name" name="name" placeholder="Aapka naam" required />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email (Optional)</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="service">Service Required</label>
+            <select id="service" name="service">
+              <option value="">Select a service...</option>
+              <option>Eye Checkup / Power Test</option>
+              <option>New Eyeglasses</option>
+              <option>Sunglasses</option>
+              <option>Contact Lens Fitting</option>
+              <option>Kids Vision Screening</option>
+              <option>Frame Repair</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message / Preferred Time *</label>
+            <textarea id="message" name="message" placeholder="Apna sawaal ya preferred time likhein..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-calendar-check"></i> &nbsp; Confirm Appointment
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY & BRANDS ─── -->
+<section id="gallery">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Brands & Gallery</div>
+      <h2 class="section-title fade-up">Top Brands, <em>Real Store</em></h2>
+      <p class="section-sub fade-up delay-1">We stock eyewear from all leading brands at competitive prices.</p>
+    </div>
+
+    <div class="brands-strip">
+      <div class="brands-inner" id="brandsInner">
+        <span class="brand-item">Rayban</span>
+        <span class="brand-item">Titan Eye+</span>
+        <span class="brand-item">Fastrack</span>
+        <span class="brand-item">Oakley</span>
+        <span class="brand-item">Vogue</span>
+        <span class="brand-item">Carrera</span>
+        <span class="brand-item">Lenskart</span>
+        <span class="brand-item">John Jacobs</span>
+        <span class="brand-item">Vincent Chase</span>
+        <span class="brand-item">Polaroid</span>
+        <span class="brand-item">Rayban</span>
+        <span class="brand-item">Titan Eye+</span>
+        <span class="brand-item">Fastrack</span>
+        <span class="brand-item">Oakley</span>
+        <span class="brand-item">Vogue</span>
+        <span class="brand-item">Carrera</span>
+        <span class="brand-item">Lenskart</span>
+        <span class="brand-item">John Jacobs</span>
+        <span class="brand-item">Vincent Chase</span>
+        <span class="brand-item">Polaroid</span>
+      </div>
+    </div>
+
+    <div class="gallery-grid fade-up">
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder"><i class="fas fa-store"></i><span>Store Front</span></div>
+        <div class="gallery-overlay"><span>Eye Drishti Optical Store</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder"><i class="fas fa-glasses"></i><span>Frame Collection</span></div>
+        <div class="gallery-overlay"><span>Latest Frames</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder"><i class="fas fa-sun"></i><span>Sunglasses</span></div>
+        <div class="gallery-overlay"><span>Sunglasses Range</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder"><i class="fas fa-eye"></i><span>Eye Testing</span></div>
+        <div class="gallery-overlay"><span>Eye Testing Room</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-item-placeholder"><i class="fas fa-child"></i><span>Kids Section</span></div>
+        <div class="gallery-overlay"><span>Kids Eyewear</span></div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:16px;font-size:0.78rem;color:var(--text-dim);">
+      <i class="fas fa-info-circle"></i> Add your actual store photos by replacing the placeholders above with <code style="background:rgba(255,255,255,0.06);padding:2px 6px;border-radius:4px;">&lt;img src="{% templatetag openblock %} static 'optical/images/store1.jpg' {% templatetag closeblock %}" /&gt;</code>
+    </p>
+  </div>
+</section>
+
+<!-- ─── LENS SIMULATOR ─── -->
+<section id="simulator">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Try It On</div>
+      <h2 class="section-title fade-up">Virtual <em>Frame</em> Preview</h2>
+      <p class="section-sub fade-up delay-1">Choose a frame shape and lens tint to see how it looks before you visit us!</p>
+    </div>
+    <div class="sim-inner">
+      <div class="sim-controls fade-up">
+        <h3>Customise Your Look</h3>
+        <p>Experiment with different frame styles and lens colors. Visit us to try on the real thing!</p>
+        <div class="sim-options">
+          <div class="sim-opt-group">
+            <label>Frame Shape</label>
+            <div class="sim-chips" id="shapeChips">
+              <button class="sim-chip active" data-shape="round">Round</button>
+              <button class="sim-chip" data-shape="square">Square</button>
+              <button class="sim-chip" data-shape="cat">Cat-Eye</button>
+              <button class="sim-chip" data-shape="aviator">Aviator</button>
+            </div>
+          </div>
+          <div class="sim-opt-group">
+            <label>Lens Tint</label>
+            <div class="sim-chips" id="tintChips">
+              <button class="sim-chip active" data-tint="clear">Clear</button>
+              <button class="sim-chip" data-tint="blue">Blue Tint</button>
+              <button class="sim-chip" data-tint="grey">Grey</button>
+              <button class="sim-chip" data-tint="brown">Brown</button>
+            </div>
+          </div>
+          <div class="sim-opt-group">
+            <label>Frame Color</label>
+            <div class="sim-chips" id="colorChips">
+              <button class="sim-chip active" data-color="navy">Navy Blue</button>
+              <button class="sim-chip" data-color="gold">Gold</button>
+              <button class="sim-chip" data-color="black">Black</button>
+              <button class="sim-chip" data-color="silver">Silver</button>
+            </div>
+          </div>
+        </div>
+        <a href="https://wa.me/919044790354?text=I'd like to try on frames at Eye Drishti Optical" target="_blank" class="btn-primary" style="margin-top:28px;display:inline-flex;">
+          <i class="fab fa-whatsapp"></i> Book Frame Trial
+        </a>
+      </div>
+      <div class="sim-canvas-wrap fade-up delay-2">
+        <div class="sim-face-bg">
+          <svg class="sim-face-svg" id="simSvg" viewBox="0 0 300 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Face -->
+            <ellipse cx="150" cy="170" rx="90" ry="120" fill="rgba(26,108,246,0.05)" stroke="rgba(26,108,246,0.15)" stroke-width="1.5"/>
+            <!-- Hair -->
+            <ellipse cx="150" cy="70" rx="95" ry="55" fill="rgba(26,108,246,0.1)" stroke="rgba(26,108,246,0.2)" stroke-width="1"/>
+            <!-- Ears -->
+            <ellipse cx="62" cy="170" rx="14" ry="20" fill="rgba(26,108,246,0.05)" stroke="rgba(26,108,246,0.12)" stroke-width="1"/>
+            <ellipse cx="238" cy="170" rx="14" ry="20" fill="rgba(26,108,246,0.05)" stroke="rgba(26,108,246,0.12)" stroke-width="1"/>
+            <!-- Nose -->
+            <path d="M145 175 Q150 195 155 175" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Mouth -->
+            <path d="M133 215 Q150 228 167 215" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <!-- Glasses Group -->
+            <g id="simGlasses"></g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── REVIEWS ─── -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Testimonials</div>
+      <h2 class="section-title fade-up">What Our <em>Customers</em> Say</h2>
+    </div>
+
+    <div class="rating-hero fade-up">
+      <div class="rating-big">
+        <div class="rating-number">{{ rating }}</div>
+        <div class="rating-stars">★★★★★</div>
+        <div class="rating-source">Based on Google Reviews</div>
+      </div>
+      <div class="rating-bars">
+        <div class="rb-row"><span class="rb-label">5★</span><div class="rb-track"><div class="rb-fill" data-w="85%"></div></div><span class="rb-count">85%</span></div>
+        <div class="rb-row"><span class="rb-label">4★</span><div class="rb-track"><div class="rb-fill" data-w="10%"></div></div><span class="rb-count">10%</span></div>
+        <div class="rb-row"><span class="rb-label">3★</span><div class="rb-track"><div class="rb-fill" data-w="3%"></div></div><span class="rb-count">3%</span></div>
+        <div class="rb-row"><span class="rb-label">2★</span><div class="rb-track"><div class="rb-fill" data-w="1%"></div></div><span class="rb-count">1%</span></div>
+        <div class="rb-row"><span class="rb-label">1★</span><div class="rb-track"><div class="rb-fill" data-w="1%"></div></div><span class="rb-count">1%</span></div>
+      </div>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card fade-up">
+        <div class="review-header">
+          <div class="review-avatar av-1">R</div>
+          <div class="review-meta">
+            <strong>Rahul Sharma</strong>
+            <span>Pratapgarh · 2 weeks ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Bahut achha optical hai. Eye checkup bilkul sahi se hua aur naya chashma bhi perfect fit hai. Price bhi reasonable hai. Highly recommend!"</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+      <div class="review-card fade-up delay-1">
+        <div class="review-header">
+          <div class="review-avatar av-2">P</div>
+          <div class="review-meta">
+            <strong>Priya Mishra</strong>
+            <span>Pratapgarh · 1 month ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"My daughter's glasses were done in just 2 hours! The eye test was gentle and thorough. Kids' frames are very sturdy and cute. Will definitely come back."</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+      <div class="review-card fade-up delay-2">
+        <div class="review-header">
+          <div class="review-avatar av-3">A</div>
+          <div class="review-meta">
+            <strong>Amit Verma</strong>
+            <span>Kachahri Road · 3 months ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★☆</div>
+        <div class="review-text">"Good collection of frames, honest pricing compared to other shops in Pratapgarh. Staff is very helpful. Got my bifocal lenses done without any issue."</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+      <div class="review-card fade-up">
+        <div class="review-header">
+          <div class="review-avatar av-4">S</div>
+          <div class="review-meta">
+            <strong>Sunita Yadav</strong>
+            <span>Pratapgarh · 5 months ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Eye Drishti Optical is the best in Pratapgarh! Got sunglasses with power lenses and they are perfect. Very polite staff and fast service. Highly recommended."</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+      <div class="review-card fade-up delay-1">
+        <div class="review-header">
+          <div class="review-avatar av-5">M</div>
+          <div class="review-meta">
+            <strong>Mohan Gupta</strong>
+            <span>Pratapgarh · 1 week ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"My broken spectacle was repaired in just 30 minutes! Very reasonable price. I've been coming here for 3 years and never disappointed. Genuine shop!"</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+      <div class="review-card fade-up delay-2">
+        <div class="review-header">
+          <div class="review-avatar av-6">K</div>
+          <div class="review-meta">
+            <strong>Kavita Singh</strong>
+            <span>Nayab Market · 2 months ago</span>
+          </div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <div class="review-text">"Best optical shop near SBI Bank, Kachahri Road. Got contact lenses for the first time. They explained everything so patiently. Wonderful experience!"</div>
+        <div class="review-verified"><i class="fas fa-check-circle"></i> Verified Google Review</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;" class="fade-up">
+      <a href="https://g.page/r/review" target="_blank" class="btn-ghost">
+        <i class="fab fa-google"></i> Write a Google Review
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ─── -->
+<section id="faq">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title fade-up">Got <em>Questions?</em></h2>
+      <p class="section-sub fade-up delay-1">Everything you need to know about our services. Can't find the answer? Just WhatsApp us!</p>
+    </div>
+    <div class="faq-grid fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you offer free eye tests?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Yes! We offer a basic free eye checkup for all walk-in customers. A detailed comprehensive eye exam (including eye pressure test and fundus check) is available at ₹199 only.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What brands of frames do you carry?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">We stock a wide range of brands including Rayban, Fastrack, Titan Eye+, Oakley, Vogue, Carrera, John Jacobs, and many local affordable brands starting from ₹299. We have 500+ frame styles in stock.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>How long does it take to get glasses made?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Standard single-vision lenses are ready in 1–2 hours. Bifocal and progressive lenses may take 24–48 hours. We'll let you know the exact time after checking your prescription.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you accept UPI / online payment?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Yes! We accept cash, UPI (PhonePe, Google Pay, Paytm), and all major debit/credit cards. No extra charges for digital payments.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Can I get lenses for my old frame?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Absolutely! Bring your old frame and we'll fit new prescription lenses in it. We can also repair or adjust your old frame if needed — usually for free or at minimal cost.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Is eye testing available for children?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Yes! We specialize in kids vision screening from age 3 onwards. Our friendly staff makes the experience comfortable for children. School vision certificates are also provided for free.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>What are your shop timings?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">We are open Monday to Saturday from 10:00 AM to 8:00 PM. We are closed on Sundays. For urgent queries on Sundays, you can WhatsApp us at +91 90447 90354 and we'll respond as soon as possible.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Do you offer home delivery?</span><i class="fas fa-plus"></i>
+        </div>
+        <div class="faq-a">Currently we do not offer home delivery, but you can place your order via WhatsApp and arrange for someone to pick it up. We're exploring home delivery options for Pratapgarh city soon!</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header center">
+      <div class="section-tag">Contact Us</div>
+      <h2 class="section-title fade-up">Find Us & <em>Get in Touch</em></h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info fade-up">
+        <h3>Visit Our Store</h3>
+        <p>Walk in anytime during business hours. Conveniently located near SBI Bank on Kachahri Road, Pratapgarh.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-item-body">
+              <strong>Address</strong>
+              <a href="https://maps.google.com/?q=Eye+Drishti+Optical+Pratapgarh" target="_blank">
+                Shop No. 6, Nayab Market, Kachahri Road,<br>Near SBI Bank, Pratapgarh, U.P. 230001
+              </a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-phone-alt"></i></div>
+            <div class="contact-item-body">
+              <strong>Phone</strong>
+              <a href="tel:+919044790354">+91 90447 90354</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-item-body">
+              <strong>WhatsApp</strong>
+              <a href="https://wa.me/919044790354" target="_blank">Chat with us on WhatsApp</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-clock"></i></div>
+            <div class="contact-item-body">
+              <strong>Opening Hours</strong>
+              <span>Mon–Sat: 10:00 AM – 8:00 PM<br><em style="color:#F87171">Closed on Sundays</em></span>
+            </div>
+          </div>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.0!2d81.9842!3d25.9104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399a87b5e07d9651%3A0x22e8c1e8b7fd5ee4!2sEye%20Drishti%20Optical!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+
+      <div class="contact-form-wrap fade-up delay-2">
+        <h3>Send Us a Message</h3>
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-error{% endif %}">
+              <i class="fas {% if message.tags == 'success' %}fa-check-circle{% else %}fa-exclamation-circle{% endif %}"></i>
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <form method="POST" action="{% url 'home' %}#contact">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cname">Your Name *</label>
+              <input type="text" id="cname" name="name" placeholder="Aapka naam" required />
+            </div>
+            <div class="form-group">
+              <label for="cphone">Phone Number *</label>
+              <input type="tel" id="cphone" name="phone" placeholder="+91 XXXXX XXXXX" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cemail">Email (Optional)</label>
+            <input type="email" id="cemail" name="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="cmessage">Your Message *</label>
+            <textarea id="cmessage" name="message" placeholder="Apna sawaal ya appointment request likhein..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> &nbsp; Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <div class="footer-logo-icon"><i class="fas fa-eye"></i></div>
+        <strong>Eye Drishti Optical</strong>
+      </div>
+      <p>Your trusted optical shop in Pratapgarh, U.P. Quality eyewear, expert care, and honest pricing — since 2019. आपकी नज़र, हमारी प्राथमिकता।</p>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/919044790354" aria-label="WhatsApp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:+919044790354" aria-label="Call"><i class="fas fa-phone-alt"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#booking">Book Eye Test</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#products">Eyeglasses</a></li>
+        <li><a href="#products">Sunglasses</a></li>
+        <li><a href="#products">Contact Lenses</a></li>
+        <li><a href="#products">Designer Frames</a></li>
+        <li><a href="#products">Kids Eyewear</a></li>
+        <li><a href="#products">Blue Light Glasses</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+919044790354">+91 90447 90354</a></li>
+        <li><a href="https://wa.me/919044790354">WhatsApp Us</a></li>
+        <li><a href="#">Nayab Market, Kachahri Road</a></li>
+        <li><a href="#">Pratapgarh, U.P. 230001</a></li>
+        <li><a href="#">Mon–Sat: 10AM–8PM</a></li>
+        <li><a href="#" style="color:#F87171;">Closed on Sundays</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Eye Drishti Optical. All rights reserved.</span>
+    <span>Made with <i class="fas fa-heart" style="color:#EF4444"></i> in Pratapgarh, U.P.</span>
+  </div>
+</footer>
+
+<!-- ─── FLOATING ACTIONS ─── -->
+<div class="floating-actions">
+  <a href="https://wa.me/919044790354?text=Hello!%20I%20want%20to%20enquire%20about%20eyewear%20at%20Eye%20Drishti%20Optical."
+     target="_blank" class="float-btn float-whatsapp" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="float-tooltip">Chat on WhatsApp</span>
+  </a>
+  <a href="tel:+919044790354" class="float-btn float-call" aria-label="Call">
+    <i class="fas fa-phone-alt"></i>
+    <span class="float-tooltip">Call Now</span>
+  </a>
+</div>
+
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const cursorDot = document.getElementById('cursorDot');
+if (cursor) {
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('a, button, .product-card, .service-card, .sim-chip, .filter-btn').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+  });
+}
+
+// ── SCROLL PROGRESS ──
+window.addEventListener('scroll', () => {
+  const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  document.getElementById('scroll-progress').style.width = scrolled + '%';
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── BUSINESS STATUS ──
+function updateStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0 = Sunday
+  const h = now.getHours(), m = now.getMinutes();
+  const time = h * 60 + m;
+  const open = day >= 1 && day <= 6 && time >= 600 && time < 1200; // 10AM–8PM
+  const dot = document.getElementById('statusDot');
+  const txt = document.getElementById('statusText');
+  const heroStatus = document.getElementById('heroStatus');
+  if (dot && txt) {
+    dot.className = 'status-dot' + (open ? '' : ' closed');
+    txt.textContent = open ? 'Open Now' : (day === 0 ? 'Closed Sunday' : 'Closed');
+    txt.style.color = open ? '#4ADE80' : '#F87171';
+  }
+  if (heroStatus) {
+    heroStatus.innerHTML = open
+      ? '<i class="fas fa-circle" style="color:#22c55e;font-size:0.6rem"></i> Open Now'
+      : '<i class="fas fa-circle" style="color:#ef4444;font-size:0.6rem"></i> ' + (day === 0 ? 'Closed Sunday' : 'Closed');
+  }
+}
+updateStatus(); setInterval(updateStatus, 60000);
+
+// ── HAMBURGER ──
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+});
+
+// ── FAQ ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── SCROLL ANIMATION ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// ── RATING BARS ──
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.rb-fill').forEach(bar => {
+        bar.style.width = bar.dataset.w;
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.rating-hero').forEach(el => barObserver.observe(el));
+
+// ── PRODUCT FILTER ──
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.product-card').forEach(card => {
+      const cat = card.dataset.cat;
+      const show = filter === 'all' || cat === filter;
+      card.style.display = show ? 'block' : 'none';
+      if (show) {
+        card.style.opacity = '0'; card.style.transform = 'translateY(20px)';
+        setTimeout(() => { card.style.transition = 'all 0.4s'; card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
+      }
+    });
+  });
+});
+
+// ── COUNTDOWN (24 hrs from page load for demo) ──
+function updateCountdown() {
+  const end = new Date(); end.setHours(23, 59, 59, 999);
+  const diff = end - new Date();
+  if (diff <= 0) return;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  const pad = n => String(n).padStart(2, '0');
+  document.getElementById('cdH').textContent = pad(h);
+  document.getElementById('cdM').textContent = pad(m);
+  document.getElementById('cdS').textContent = pad(s);
+}
+updateCountdown(); setInterval(updateCountdown, 1000);
+
+// ── LENS SIMULATOR ──
+const simState = { shape: 'round', tint: 'clear', color: 'navy' };
+const frameColors = { navy: '#1A6CF6', gold: '#E8B84B', black: '#1a1a2e', silver: '#A8B8C8' };
+const tintColors = { clear: 'rgba(26,108,246,0.1)', blue: 'rgba(0,150,255,0.35)', grey: 'rgba(60,60,80,0.4)', brown: 'rgba(120,80,40,0.35)' };
+
+function renderSimGlasses() {
+  const g = document.getElementById('simGlasses');
+  if (!g) return;
+  const fc = frameColors[simState.color];
+  const tc = tintColors[simState.tint];
+  const { shape } = simState;
+  let leftPath, rightPath, bridge, temples;
+
+  if (shape === 'round') {
+    leftPath = `<ellipse cx="105" cy="145" rx="50" ry="45" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    rightPath = `<ellipse cx="195" cy="145" rx="50" ry="45" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    bridge = `<path d="M155 142 Q150 135 145 142" stroke="${fc}" stroke-width="4" fill="none" stroke-linecap="round"/>`;
+    temples = `<line x1="55" y1="135" x2="38" y2="125" stroke="${fc}" stroke-width="4" stroke-linecap="round"/><line x1="245" y1="135" x2="262" y2="125" stroke="${fc}" stroke-width="4" stroke-linecap="round"/>`;
+  } else if (shape === 'square') {
+    leftPath = `<rect x="55" y="110" width="96" height="76" rx="10" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    rightPath = `<rect x="149" y="110" width="96" height="76" rx="10" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    bridge = `<path d="M151 142 Q150 135 149 142" stroke="${fc}" stroke-width="4" fill="none"/>`;
+    temples = `<line x1="55" y1="130" x2="38" y2="122" stroke="${fc}" stroke-width="4" stroke-linecap="round"/><line x1="245" y1="130" x2="262" y2="122" stroke="${fc}" stroke-width="4" stroke-linecap="round"/>`;
+  } else if (shape === 'cat') {
+    leftPath = `<path d="M55 140 Q60 110 110 108 Q145 108 150 138 Q145 162 100 165 Q60 163 55 140Z" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    rightPath = `<path d="M150 138 Q155 108 190 108 Q245 110 245 140 Q245 163 195 165 Q155 162 150 138Z" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    bridge = `<path d="M150 138 Q150 132 150 138" stroke="${fc}" stroke-width="4" fill="none"/>`;
+    temples = `<line x1="55" y1="132" x2="38" y2="124" stroke="${fc}" stroke-width="4" stroke-linecap="round"/><line x1="245" y1="132" x2="262" y2="124" stroke="${fc}" stroke-width="4" stroke-linecap="round"/>`;
+  } else if (shape === 'aviator') {
+    leftPath = `<path d="M60 128 Q62 105 105 105 Q148 105 150 128 Q148 168 105 172 Q60 168 60 128Z" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    rightPath = `<path d="M150 128 Q152 105 195 105 Q238 105 240 128 Q240 168 195 172 Q152 168 150 128Z" fill="${tc}" stroke="${fc}" stroke-width="5"/>`;
+    bridge = `<path d="M150 124 Q150 117 150 124" stroke="${fc}" stroke-width="3" fill="none"/>`;
+    temples = `<line x1="60" y1="122" x2="40" y2="112" stroke="${fc}" stroke-width="4" stroke-linecap="round"/><line x1="240" y1="122" x2="260" y2="112" stroke="${fc}" stroke-width="4" stroke-linecap="round"/>`;
+  }
+  // Shine
+  const shine = `<ellipse cx="87" cy="125" rx="18" ry="10" fill="rgba(255,255,255,0.15)" transform="rotate(-20 87 125)"/><ellipse cx="213" cy="125" rx="18" ry="10" fill="rgba(255,255,255,0.15)" transform="rotate(-20 213 125)"/>`;
+  g.innerHTML = temples + leftPath + rightPath + bridge + shine;
+}
+
+renderSimGlasses();
+
+['shapeChips', 'tintChips', 'colorChips'].forEach(id => {
+  document.getElementById(id)?.querySelectorAll('.sim-chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+      this.closest('.sim-chips').querySelectorAll('.sim-chip').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      if (this.dataset.shape) simState.shape = this.dataset.shape;
+      if (this.dataset.tint) simState.tint = this.dataset.tint;
+      if (this.dataset.color) simState.color = this.dataset.color;
+      renderSimGlasses();
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Appointment Confirmed! – Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --white: #ffffff; --off-white: #f7fafd; --light-gray: #edf2f7;
+      --text-dark: #1a202c; --text-body: #4a5568; --text-light: #718096;
+      --border: #e2e8f0; --shadow-lg: 0 16px 48px rgba(0,0,0,0.13);
+      --radius: 14px; --radius-sm: 8px; --transition: 0.3s ease;
+      --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); }
+    .container { max-width: 660px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 0.93rem; font-family: var(--font-body); cursor: pointer; border: none; transition: var(--transition); text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .ann-bar { background: linear-gradient(90deg,var(--primary-dark),var(--primary)); color:#fff; text-align:center; padding:9px 20px; font-size:0.84rem; font-weight:600; }
+    .navbar { background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; max-width: 1200px; margin: 0 auto; }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; background: linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark); }
+    .brand-sub { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+    .nav-actions { display: flex; gap: 9px; }
+    .nav-wa { width: 37px; height: 37px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+
+    .success-wrap { padding: 50px 0 60px; }
+    .success-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; }
+
+    .success-header { background: linear-gradient(135deg, #1a6fc4, #2589e8); padding: 40px 32px; text-align: center; }
+    .success-icon { width: 80px; height: 80px; background: rgba(255,255,255,.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.2rem; margin: 0 auto 16px; border: 3px solid rgba(255,255,255,.4); }
+    .success-header h1 { font-family: var(--font-display); font-size: 1.8rem; color: #fff; margin-bottom: 8px; }
+    .success-header p { color: rgba(255,255,255,.85); font-size: 1rem; }
+    .appt-id-badge { display: inline-block; background: rgba(255,255,255,.2); color: #fff; padding: 6px 20px; border-radius: 50px; font-weight: 700; font-size: 0.9rem; margin-top: 14px; border: 1px solid rgba(255,255,255,.3); }
+
+    .success-body { padding: 32px; }
+    .detail-section { margin-bottom: 26px; }
+    .detail-section h3 { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-light); }
+    .detail-row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.9rem; gap: 16px; }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .dlabel { color: var(--text-light); font-weight: 600; flex-shrink: 0; }
+    .detail-row .dvalue { color: var(--text-dark); font-weight: 700; text-align: right; }
+
+    .pending-badge { display: inline-block; padding: 4px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; background: #fef3c7; color: #92400e; }
+
+    .cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 28px; }
+
+    .next-steps { background: var(--primary-light); padding: 24px 32px; border-top: 1px solid var(--border); }
+    .next-steps h4 { font-weight: 700; color: var(--primary); margin-bottom: 14px; font-size: 0.92rem; }
+    .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .steps-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; color: var(--text-body); font-weight: 600; }
+    .step-num { width: 22px; height: 22px; background: var(--primary); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; flex-shrink: 0; margin-top: 2px; }
+
+    .simple-footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 22px; font-size: 0.85rem; }
+    .simple-footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Pratapgarh, U.P.</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <a href="https://wa.me/919044790354" target="_blank" class="nav-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</nav>
+
+<div class="success-wrap">
+  <div class="container">
+    <div class="success-card">
+      <div class="success-header">
+        <div class="success-icon">📅</div>
+        <h1>Appointment Booked!</h1>
+        <p>Shukriya {{ appointment.name }} ji! Aapki appointment receive ho gayi hai.</p>
+        <div class="appt-id-badge">Appointment #{{ appointment.id }}</div>
+      </div>
+
+      <div class="success-body">
+        <div class="detail-section">
+          <h3><i class="fas fa-concierge-bell" style="color:var(--primary);"></i> Appointment Details</h3>
+          <div class="detail-row"><span class="dlabel">Service</span><span class="dvalue">{{ appointment.get_service_type_display }}</span></div>
+          <div class="detail-row"><span class="dlabel">Date</span><span class="dvalue">{{ appointment.preferred_date|date:"l, d M Y" }}</span></div>
+          <div class="detail-row"><span class="dlabel">Time</span><span class="dvalue">{{ appointment.preferred_time }}</span></div>
+          <div class="detail-row"><span class="dlabel">Status</span><span class="dvalue"><span class="pending-badge">⏳ Confirmation Pending</span></span></div>
+        </div>
+
+        <div class="detail-section">
+          <h3><i class="fas fa-user" style="color:var(--primary);"></i> Your Details</h3>
+          <div class="detail-row"><span class="dlabel">Name</span><span class="dvalue">{{ appointment.name }}</span></div>
+          <div class="detail-row"><span class="dlabel">Phone</span><span class="dvalue">{{ appointment.phone }}</span></div>
+          {% if appointment.email %}<div class="detail-row"><span class="dlabel">Email</span><span class="dvalue">{{ appointment.email }}</span></div>{% endif %}
+        </div>
+
+        {% if appointment.notes %}
+        <div class="detail-section">
+          <h3><i class="fas fa-sticky-note" style="color:var(--primary);"></i> Notes</h3>
+          <p style="font-size:0.9rem;">{{ appointment.notes }}</p>
+        </div>
+        {% endif %}
+
+        <div class="cta-row">
+          <a href="{% url 'home' %}" class="btn btn-primary"><i class="fas fa-home"></i> Home</a>
+          <a href="{% url 'products' %}" class="btn" style="background:var(--light-gray);color:var(--text-dark);border-radius:50px;"><i class="fas fa-shopping-bag"></i> Products</a>
+          <a href="https://wa.me/919044790354?text=Hi!%20Mera%20Appointment%20%23{{ appointment.id }}%20hai%20{{ appointment.preferred_date }}%20ko%20{{ appointment.preferred_time|urlencode }}%20baje.%20Please%20confirm%20karein." target="_blank" class="btn" style="background:#25d366;color:#fff;border-radius:50px;">
+            <i class="fab fa-whatsapp"></i> WhatsApp Confirm
+          </a>
+        </div>
+      </div>
+
+      <div class="next-steps">
+        <h4>📋 Aage kya hoga?</h4>
+        <ul class="steps-list">
+          <li><div class="step-num">1</div> Hum aapko <strong>{{ appointment.phone }}</strong> par call karke appointment confirm karenge</li>
+          <li><div class="step-num">2</div> <strong>{{ appointment.preferred_date|date:"d M Y" }}</strong> ko <strong>{{ appointment.preferred_time }}</strong> baje shop par aaiye — Shop No. 6, Nayab Market, Pratapgarh</li>
+          <li><div class="step-num">3</div> Agar koi change chahiye to WhatsApp par message karein</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+</body>
+</html>

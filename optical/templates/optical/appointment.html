@@ -1,0 +1,306 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Appointment – Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --accent-dark: #e08c00; --white: #ffffff;
+      --off-white: #f7fafd; --light-gray: #edf2f7; --mid-gray: #a0aec0;
+      --text-dark: #1a202c; --text-body: #4a5568; --text-light: #718096;
+      --success: #38a169; --error: #e53e3e; --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07); --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.13); --radius: 14px; --radius-sm: 8px;
+      --transition: 0.3s ease; --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); line-height: 1.7; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 0.93rem; font-family: var(--font-body); cursor: pointer; border: none; transition: var(--transition); text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(26,111,196,.28); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    .ann-bar { background: linear-gradient(90deg,var(--primary-dark),var(--primary)); color:#fff; text-align:center; padding:9px 20px; font-size:0.84rem; font-weight:600; }
+    .navbar { background: var(--white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; max-width: 1200px; margin: 0 auto; }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; background: linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark); }
+    .brand-sub { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { padding: 7px 13px; border-radius: 8px; color: var(--text-body); text-decoration: none; font-weight: 600; font-size: 0.91rem; transition: var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--primary-light); }
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+    .nav-call { display: flex; align-items: center; gap: 6px; padding: 9px 18px; background: var(--primary); color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.87rem; }
+    .nav-wa { width: 37px; height: 37px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+
+    /* HERO */
+    .page-hero { background: linear-gradient(135deg, #0f3f7a 0%, #1a6fc4 60%, #2589e8 100%); padding: 60px 0 50px; text-align: center; position: relative; overflow: hidden; }
+    .page-hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1600&q=40') center/cover; opacity:0.05; }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .hero-label { display: inline-block; background: rgba(245,166,35,.2); color: var(--accent); border: 1px solid rgba(245,166,35,.35); padding: 6px 20px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 16px; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(1.8rem,4vw,2.8rem); color:#fff; margin-bottom:10px; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { color: rgba(255,255,255,.8); font-size:1rem; max-width: 520px; margin: 0 auto; }
+
+    /* LAYOUT */
+    .appt-layout { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; padding: 40px 0 60px; align-items: start; }
+
+    /* FORM CARD */
+    .form-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-md); padding: 32px; }
+    .form-card h2 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-dark); margin-bottom: 6px; }
+    .form-card .subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 28px; border-bottom: 2px solid var(--primary-light); padding-bottom: 14px; }
+
+    .section-heading { font-weight: 700; font-size: 0.92rem; color: var(--primary); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; margin-top: 8px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-weight: 700; font-size: 0.87rem; color: var(--text-dark); margin-bottom: 7px; }
+    .form-label .req { color: var(--error); }
+    .form-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.95rem; color: var(--text-dark); outline: none; transition: var(--transition); background: var(--white); }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,.1); }
+    textarea.form-input { resize: vertical; min-height: 90px; }
+
+    /* SERVICE CARDS */
+    .service-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .service-option { position: relative; }
+    .service-option input[type="radio"] { position: absolute; opacity: 0; width: 0; }
+    .service-label {
+      display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 10px;
+      border: 2px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;
+      text-align: center; transition: var(--transition); font-size: 0.82rem; font-weight: 700;
+      color: var(--text-body); line-height: 1.3;
+    }
+    .service-label .svc-icon { font-size: 1.5rem; }
+    .service-option input:checked + .service-label { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+    .service-label:hover { border-color: var(--primary); background: var(--primary-light); }
+
+    /* TIME SLOTS */
+    .time-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .time-option { position: relative; }
+    .time-option input[type="radio"] { position: absolute; opacity: 0; width: 0; }
+    .time-label { padding: 7px 14px; border: 2px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; font-size: 0.82rem; font-weight: 700; color: var(--text-body); transition: var(--transition); display: block; }
+    .time-option input:checked + .time-label { border-color: var(--primary); background: var(--primary); color: #fff; }
+    .time-label:hover { border-color: var(--primary); background: var(--primary-light); color: var(--primary); }
+
+    /* PRE-FILL STRIP */
+    .prefill-strip { background: var(--primary-light); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 22px; display: flex; align-items: center; gap: 10px; border: 1px solid rgba(26,111,196,.15); font-size: 0.88rem; font-weight: 600; color: var(--text-dark); }
+
+    .submit-btn { width: 100%; justify-content: center; padding: 15px; border-radius: var(--radius-sm); font-size: 1rem; margin-top: 8px; }
+
+    /* SIDEBAR */
+    .sidebar-info { display: flex; flex-direction: column; gap: 20px; position: sticky; top: 82px; }
+    .info-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 24px; border: 1px solid var(--border); }
+    .info-card h3 { font-family: var(--font-display); font-size: 1.05rem; color: var(--text-dark); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--primary-light); display: flex; align-items: center; gap: 8px; }
+    .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 0.88rem; }
+    .info-row i { color: var(--primary); margin-top: 3px; flex-shrink: 0; width: 16px; }
+    .info-row strong { color: var(--text-dark); }
+
+    .services-offered { list-style: none; }
+    .services-offered li { display: flex; align-items: center; gap: 9px; padding: 10px 0; border-bottom: 1px solid var(--light-gray); font-size: 0.88rem; color: var(--text-body); font-weight: 600; }
+    .services-offered li:last-child { border-bottom: none; }
+    .services-offered li .svc-em { font-size: 1.1rem; }
+
+    /* MESSAGES */
+    .alert { display: flex; gap: 10px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; margin-bottom: 14px; }
+    .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+    .alert-error { background: #fff5f5; color: #9b2c2c; border: 1px solid #fed7d7; }
+
+    .simple-footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 22px; font-size: 0.85rem; }
+    .simple-footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .appt-layout { grid-template-columns: 1fr; }
+      .sidebar-info { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .service-grid { grid-template-columns: 1fr 1fr; }
+      .form-card { padding: 22px 18px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">📅 Appointment ke liye aaj call karein | +91 90447 90354 | Pratapgarh, U.P.</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'products' %}">Products</a></li>
+      <li><a href="{% url 'book_appointment' %}" class="active">📅 Appointment</a></li>
+      {% if customer %}
+      <li><a href="{% url 'customer_dashboard' %}">👤 {{ customer.name }}</a></li>
+      {% else %}
+      <li><a href="{% url 'customer_login' %}">Login</a></li>
+      {% endif %}
+    </ul>
+    <div class="nav-actions">
+      <a href="tel:+919044790354" class="nav-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+      <a href="https://wa.me/919044790354" target="_blank" class="nav-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner container">
+    <div class="hero-label">📅 Book Appointment</div>
+    <h1>Book Your <span>Eye Appointment</span></h1>
+    <p>Eye checkup, frame selection, contact lens fitting — sab ke liye appointment book karo. Line mein khade rehne ki zaroorat nahi!</p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="appt-layout">
+
+    <!-- FORM -->
+    <div class="form-card">
+      <h2>Appointment Form</h2>
+      <p class="subtitle">Niche details bharo, hum aapko confirm karenge 📞</p>
+
+      {% if messages %}
+        {% for msg in messages %}
+        <div class="alert {% if '✅' in msg.message %}alert-success{% else %}alert-error{% endif %}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+
+      {% if customer %}
+      <div class="prefill-strip">
+        <i class="fas fa-user-check" style="color:var(--primary);font-size:1rem;"></i>
+        Logged in as <strong>{{ customer.name }}</strong> ({{ customer.phone }}) — details pre-filled!
+      </div>
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="section-heading"><i class="fas fa-concierge-bell"></i> Service Chuniye</div>
+        <div class="service-grid">
+          {% for val, label in service_choices %}
+          <div class="service-option">
+            <input type="radio" name="service_type" id="svc_{{ val }}" value="{{ val }}" {% if val == 'eye_checkup' %}checked{% endif %} />
+            <label class="service-label" for="svc_{{ val }}">
+              <span class="svc-icon">
+                {% if val == 'eye_checkup' %}👁️{% elif val == 'frame_selection' %}👓{% elif val == 'contact_lens' %}🔬{% elif val == 'repair' %}🔧{% elif val == 'prescription' %}📋{% else %}📌{% endif %}
+              </span>
+              {{ label }}
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="section-heading" style="margin-top:20px;"><i class="fas fa-user"></i> Aapki Details</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="name">Full Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Aapka naam" value="{% if customer %}{{ customer.name }}{% endif %}" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="10-digit mobile" value="{% if customer %}{{ customer.phone }}{% endif %}" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <input type="email" id="email" name="email" class="form-input" placeholder="aapka@email.com" value="{% if customer and customer.email %}{{ customer.email }}{% endif %}" />
+        </div>
+
+        <div class="section-heading" style="margin-top:20px;"><i class="fas fa-calendar-alt"></i> Date & Time</div>
+        <div class="form-group">
+          <label class="form-label" for="preferred_date">Preferred Date <span class="req">*</span></label>
+          <input type="date" id="preferred_date" name="preferred_date" class="form-input" required min="{{ today_date }}" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Preferred Time <span class="req">*</span></label>
+          <div class="time-grid">
+            {% for slot in time_slots %}
+            <div class="time-option">
+              <input type="radio" name="preferred_time" id="time_{{ forloop.counter }}" value="{{ slot }}" {% if forloop.first %}checked{% endif %} />
+              <label class="time-label" for="time_{{ forloop.counter }}">{{ slot }}</label>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Additional Notes <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <textarea id="notes" name="notes" class="form-input" placeholder="Koi specific problem? Previous prescription? Kuch batana ho to likhein..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn">
+          <i class="fas fa-calendar-check"></i> Book Appointment
+        </button>
+      </form>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar-info">
+      <div class="info-card">
+        <h3><i class="fas fa-store" style="color:var(--primary);"></i> Shop Info</h3>
+        <div class="info-row"><i class="fas fa-map-marker-alt"></i><div>Shop No. 6, Nayab Market, Kachahri Road, Near SBI Bank, Pratapgarh, U.P. 230001</div></div>
+        <div class="info-row"><i class="fas fa-phone"></i><div><strong><a href="tel:+919044790354" style="color:var(--primary);text-decoration:none;">+91 90447 90354</a></strong></div></div>
+        <div class="info-row"><i class="fas fa-clock"></i><div><strong>Mon–Sat:</strong> 10:00 AM – 8:00 PM<br><span style="color:var(--error);font-size:0.82rem;">Closed on Sundays</span></div></div>
+        <a href="https://wa.me/919044790354?text=Hi!%20I%20want%20to%20book%20an%20appointment." target="_blank" class="btn" style="background:#25d366;color:#fff;border-radius:50px;width:100%;justify-content:center;margin-top:8px;">
+          <i class="fab fa-whatsapp"></i> WhatsApp for Appointment
+        </a>
+      </div>
+
+      <div class="info-card">
+        <h3><i class="fas fa-list-check" style="color:var(--primary);"></i> Humare Services</h3>
+        <ul class="services-offered">
+          <li><span class="svc-em">👁️</span> Free Eye Checkup (with frame purchase)</li>
+          <li><span class="svc-em">🔬</span> Lens Fitting & Coating</li>
+          <li><span class="svc-em">🔧</span> Frame Repair (same day)</li>
+          <li><span class="svc-em">📋</span> Power / Prescription Check</li>
+          <li><span class="svc-em">💊</span> Contact Lens Fitting</li>
+          <li><span class="svc-em">🏠</span> Home Delivery (Pratapgarh area)</li>
+        </ul>
+      </div>
+
+      <div class="info-card" style="background: linear-gradient(135deg, #0f3f7a, #1a6fc4); border: none;">
+        <h3 style="color:#fff; border-bottom-color: rgba(255,255,255,0.2);">⭐ Hamare Customer Kehte Hain</h3>
+        <p style="color:rgba(255,255,255,0.85); font-size:0.88rem; font-style:italic; margin-bottom:8px;">"Bahut achha service mila! Eye test free tha aur glasses bhi jaldi mil gayi."</p>
+        <p style="color:rgba(255,255,255,0.6); font-size:0.8rem; font-weight:700;">— Rahul Sharma, Pratapgarh</p>
+        <div style="margin-top:14px; color:var(--accent); font-size:1rem;">⭐⭐⭐⭐⭐ <span style="color:rgba(255,255,255,0.7); font-size:0.82rem;"> 4.7/5 (120+ Reviews)</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+<script>
+  // Set min date to today
+  const dateInput = document.getElementById('preferred_date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+
+  // Block Sundays
+  dateInput.addEventListener('input', function() {
+    const d = new Date(this.value);
+    if (d.getDay() === 0) {
+      alert('Sorry! Shop Sunday ko band rehti hai. Please koi aur din chuniye.');
+      this.value = '';
+    }
+  });
+</script>
+</body>
+</html>

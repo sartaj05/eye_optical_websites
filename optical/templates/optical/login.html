@@ -1,0 +1,341 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Register – Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --accent-dark: #e08c00; --white: #ffffff;
+      --off-white: #f7fafd; --light-gray: #edf2f7; --mid-gray: #a0aec0;
+      --text-dark: #1a202c; --text-body: #4a5568; --text-light: #718096;
+      --success: #38a169; --error: #e53e3e; --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07); --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.13); --radius: 14px; --radius-sm: 8px;
+      --transition: 0.3s ease; --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); line-height: 1.7; overflow-x: hidden; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 0.93rem; font-family: var(--font-body); cursor: pointer; border: none; transition: var(--transition); text-decoration: none; white-space: nowrap; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(26,111,196,.28); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { background: var(--accent-dark); }
+
+    /* NAVBAR */
+    .ann-bar { background: linear-gradient(90deg,var(--primary-dark),var(--primary)); color:#fff; text-align:center; padding:9px 20px; font-size:0.84rem; font-weight:600; }
+    .navbar { background: var(--white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; max-width: 1200px; margin: 0 auto; }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; background: linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark); line-height: 1.1; }
+    .brand-sub { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-links a { padding: 7px 13px; border-radius: 8px; color: var(--text-body); text-decoration: none; font-weight: 600; font-size: 0.91rem; transition: var(--transition); }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); background: var(--primary-light); }
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+    .nav-call { display: flex; align-items: center; gap: 6px; padding: 9px 18px; background: var(--primary); color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.87rem; transition: var(--transition); }
+    .nav-call:hover { background: var(--primary-dark); }
+    .nav-wa { width: 37px; height: 37px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; font-size: 1.05rem; transition: var(--transition); }
+    .nav-wa:hover { background: #128c7e; }
+
+    /* PAGE */
+    .page-hero {
+      background: linear-gradient(135deg, #0f3f7a 0%, #1a6fc4 60%, #2589e8 100%);
+      padding: 50px 0 40px; text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::before { content:''; position:absolute; inset:0; background:url('https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1600&q=40') center/cover; opacity:0.05; }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero h1 { font-family: var(--font-display); font-size: clamp(1.8rem,4vw,2.6rem); color:#fff; margin-bottom:8px; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { color: rgba(255,255,255,0.8); font-size:1rem; }
+
+    /* AUTH CARD */
+    .auth-wrap { max-width: 520px; margin: -30px auto 60px; padding: 0 20px; position: relative; z-index: 2; }
+    .auth-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-lg); overflow: hidden; }
+    .auth-tabs { display: flex; border-bottom: 2px solid var(--border); }
+    .auth-tab {
+      flex: 1; padding: 18px; text-align: center; font-weight: 700; font-size: 1rem;
+      cursor: pointer; border: none; background: none; font-family: var(--font-body);
+      color: var(--text-light); transition: var(--transition); border-bottom: 3px solid transparent; margin-bottom: -2px;
+    }
+    .auth-tab.active { color: var(--primary); border-bottom-color: var(--primary); background: var(--primary-light); }
+    .auth-tab:hover:not(.active) { background: var(--light-gray); }
+
+    .auth-panel { display: none; padding: 32px; }
+    .auth-panel.active { display: block; }
+
+    .auth-panel h2 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-dark); margin-bottom: 6px; }
+    .auth-panel .subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 28px; }
+
+    .form-group { margin-bottom: 18px; }
+    .form-label { display: block; font-weight: 700; font-size: 0.87rem; color: var(--text-dark); margin-bottom: 7px; }
+    .form-label .req { color: var(--error); }
+    .form-input {
+      width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.95rem;
+      color: var(--text-dark); outline: none; transition: var(--transition); background: var(--white);
+    }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,.1); }
+    .input-icon-wrap { position: relative; }
+    .input-icon-wrap .form-input { padding-left: 42px; }
+    .input-icon-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--mid-gray); }
+
+    .pw-toggle { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); cursor: pointer; color: var(--mid-gray); background: none; border: none; font-size: 0.95rem; }
+
+    .form-hint { font-size: 0.8rem; color: var(--text-light); margin-top: 5px; }
+
+    .btn-full { width: 100%; justify-content: center; padding: 14px; border-radius: var(--radius-sm); font-size: 1rem; }
+
+    .divider { display: flex; align-items: center; gap: 12px; margin: 22px 0; }
+    .divider::before, .divider::after { content:''; flex:1; height:1px; background: var(--border); }
+    .divider span { font-size: 0.82rem; color: var(--text-light); font-weight: 600; }
+
+    .wa-login {
+      display: flex; align-items: center; justify-content: center; gap: 9px;
+      width: 100%; padding: 13px; background: #25d366; color: #fff;
+      border: none; border-radius: var(--radius-sm); font-family: var(--font-body);
+      font-weight: 700; font-size: 0.95rem; cursor: pointer; text-decoration: none;
+      transition: var(--transition);
+    }
+    .wa-login:hover { background: #128c7e; }
+
+    /* MESSAGES */
+    .messages-wrap { margin-bottom: 20px; }
+    .alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; }
+    .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+    .alert-error { background: #fff5f5; color: #9b2c2c; border: 1px solid #fed7d7; }
+
+    /* BENEFITS */
+    .benefits-strip { background: var(--primary-light); padding: 20px 32px; border-top: 1px solid var(--border); }
+    .benefits-strip h4 { font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 12px; }
+    .benefits-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .benefits-list li { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-body); font-weight: 600; }
+    .benefits-list li i { color: var(--success); }
+
+    /* FOOTER */
+    .simple-footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 22px; font-size: 0.85rem; }
+    .simple-footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .auth-panel { padding: 24px 20px; }
+      .nav-links { display: none; }
+      .benefits-strip { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ANN BAR -->
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Call: +91 90447 90354 | Pratapgarh, U.P.</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'products' %}">Products</a></li>
+      <li><a href="{% url 'book_appointment' %}">📅 Appointment</a></li>
+      <li><a href="{% url 'customer_login' %}" class="active">Login</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="tel:+919044790354" class="nav-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+      <a href="https://wa.me/919044790354" target="_blank" class="nav-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner container">
+    <h1>Welcome to <span>Eye Drishti</span></h1>
+    <p>Login or create your account to order products & book appointments</p>
+  </div>
+</div>
+
+<!-- AUTH CARD -->
+<div class="auth-wrap">
+  <div class="auth-card">
+    <!-- TABS -->
+    <div class="auth-tabs">
+      <button class="auth-tab {% if not request.POST.action or request.POST.action == 'login' %}active{% endif %}" onclick="switchTab('login')">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+      <button class="auth-tab {% if request.POST.action == 'signup' %}active{% endif %}" onclick="switchTab('signup')">
+        <i class="fas fa-user-plus"></i> Register / Sign Up
+      </button>
+    </div>
+
+    <!-- MESSAGES -->
+    {% if messages %}
+    <div style="padding: 16px 32px 0;">
+      <div class="messages-wrap">
+        {% for msg in messages %}
+        <div class="alert {% if 'successfully' in msg.message or '✅' in msg.message %}alert-success{% else %}alert-error{% endif %}">
+          {{ msg }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- LOGIN PANEL -->
+    <div class="auth-panel {% if not request.POST.action or request.POST.action == 'login' %}active{% endif %}" id="panel-login">
+      <h2>Login to Your Account</h2>
+      <p class="subtitle">Apna phone number aur password daliye</p>
+
+      <form method="POST" action="{% url 'customer_login' %}{% if next %}?next={{ next }}{% endif %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="login" />
+
+        <div class="form-group">
+          <label class="form-label" for="login-phone">Phone Number <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="login-phone" name="phone" class="form-input" placeholder="e.g. 9876543210" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-password">Password <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="login-password" name="password" class="form-input" placeholder="Your password" required />
+            <button type="button" class="pw-toggle" onclick="togglePw('login-password', this)"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+      </form>
+
+      <div class="divider"><span>ya phir</span></div>
+
+      <a href="https://wa.me/919044790354?text=Hi!%20I%20want%20to%20place%20an%20order." target="_blank" class="wa-login">
+        <i class="fab fa-whatsapp" style="font-size:1.1rem;"></i> Order via WhatsApp
+      </a>
+
+      <p style="text-align:center; margin-top:18px; font-size:0.88rem; color:var(--text-light);">
+        Account nahi hai? <a href="#" onclick="switchTab('signup')" style="color:var(--primary);font-weight:700;">Register karo</a>
+      </p>
+    </div>
+
+    <!-- SIGNUP PANEL -->
+    <div class="auth-panel {% if request.POST.action == 'signup' %}active{% endif %}" id="panel-signup">
+      <h2>Create New Account</h2>
+      <p class="subtitle">Basic details bharo aur order karna shuru karo</p>
+
+      <form method="POST" action="{% url 'customer_login' %}">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="signup" />
+
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Name <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-user"></i>
+            <input type="text" id="reg-name" name="name" class="form-input" placeholder="Aapka poora naam" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-phone">Phone Number <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-phone"></i>
+            <input type="tel" id="reg-phone" name="phone" class="form-input" placeholder="10-digit mobile number" required />
+          </div>
+          <div class="form-hint">This will be used as your login ID</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email Address <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="reg-email" name="email" class="form-input" placeholder="aapka@email.com" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-password">Password <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="reg-password" name="password" class="form-input" placeholder="Minimum 6 characters" required minlength="6" />
+            <button type="button" class="pw-toggle" onclick="togglePw('reg-password', this)"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-confirm">Confirm Password <span class="req">*</span></label>
+          <div class="input-icon-wrap">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="reg-confirm" name="confirm_password" class="form-input" placeholder="Password dobara daliye" required />
+            <button type="button" class="pw-toggle" onclick="togglePw('reg-confirm', this)"><i class="fas fa-eye"></i></button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-full">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+      </form>
+
+      <p style="text-align:center; margin-top:18px; font-size:0.88rem; color:var(--text-light);">
+        Already registered? <a href="#" onclick="switchTab('login')" style="color:var(--primary);font-weight:700;">Login karo</a>
+      </p>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="benefits-strip">
+      <h4>🎯 Account ke fayde:</h4>
+      <ul class="benefits-list">
+        <li><i class="fas fa-check-circle"></i> Online order karo, ghar baithe</li>
+        <li><i class="fas fa-check-circle"></i> Appointment book karo, line nahi</li>
+        <li><i class="fas fa-check-circle"></i> Order status track karo</li>
+        <li><i class="fas fa-check-circle"></i> Prescription history save rahegi</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.auth-tab').forEach((t,i) => {
+      t.classList.toggle('active', (i===0 && tab==='login') || (i===1 && tab==='signup'));
+    });
+    document.getElementById('panel-login').classList.toggle('active', tab==='login');
+    document.getElementById('panel-signup').classList.toggle('active', tab==='signup');
+  }
+
+  function togglePw(id, btn) {
+    const inp = document.getElementById(id);
+    const isText = inp.type === 'text';
+    inp.type = isText ? 'password' : 'text';
+    btn.innerHTML = isText ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+  }
+
+  // If signup error messages, auto-switch to signup tab
+  {% if request.POST.action == 'signup' %}
+  switchTab('signup');
+  {% endif %}
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buy – {{ product.name }} | Eye Drishti Optical</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #1a6fc4; --primary-dark: #1257a0; --primary-light: #e8f2fc;
+      --accent: #f5a623; --accent-dark: #e08c00; --white: #ffffff;
+      --off-white: #f7fafd; --light-gray: #edf2f7; --mid-gray: #a0aec0;
+      --text-dark: #1a202c; --text-body: #4a5568; --text-light: #718096;
+      --success: #38a169; --error: #e53e3e; --border: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.07); --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.13); --radius: 14px; --radius-sm: 8px;
+      --transition: 0.3s ease; --font-display: 'Playfair Display', serif; --font-body: 'Nunito', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-body); color: var(--text-body); background: var(--off-white); line-height: 1.7; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 0.93rem; font-family: var(--font-body); cursor: pointer; border: none; transition: var(--transition); text-decoration: none; }
+    .btn-primary { background: var(--primary); color: #fff; box-shadow: 0 4px 16px rgba(26,111,196,.28); }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+    .btn-outline:hover { background: var(--primary); color: #fff; }
+
+    /* NAVBAR */
+    .ann-bar { background: linear-gradient(90deg,var(--primary-dark),var(--primary)); color:#fff; text-align:center; padding:9px 20px; font-size:0.84rem; font-weight:600; }
+    .navbar { background: var(--white); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 1000; }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 13px 20px; max-width: 1200px; margin: 0 auto; }
+    .nav-brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo { width: 44px; height: 44px; background: linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+    .brand-name { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark); line-height: 1.1; }
+    .brand-sub { font-size: 0.7rem; color: var(--primary); font-weight: 600; }
+    .nav-actions { display: flex; align-items: center; gap: 9px; }
+    .nav-call { display: flex; align-items: center; gap: 6px; padding: 9px 18px; background: var(--primary); color: #fff; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.87rem; }
+    .nav-wa { width: 37px; height: 37px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+
+    /* BREADCRUMB */
+    .breadcrumb-bar { background: var(--light-gray); padding: 12px 0; }
+    .breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-light); }
+    .breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+
+    /* PAGE LAYOUT */
+    .buy-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 32px; padding: 40px 0 60px; align-items: start; }
+
+    /* PRODUCT SUMMARY CARD */
+    .product-summary {
+      background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-md);
+      overflow: hidden; position: sticky; top: 82px;
+    }
+    .prod-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .prod-details { padding: 22px; }
+    .prod-brand { font-size: 0.75rem; color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .prod-name { font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+    .prod-desc { font-size: 0.88rem; color: var(--text-light); margin-bottom: 14px; }
+    .prod-price { font-size: 1.2rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; }
+    .prod-info-row { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-body); font-weight: 600; margin-bottom: 8px; }
+    .prod-info-row i { color: var(--primary); width: 16px; }
+
+    /* ORDER FORM */
+    .order-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow-md); padding: 32px; }
+    .order-card h2 { font-family: var(--font-display); font-size: 1.5rem; color: var(--text-dark); margin-bottom: 6px; }
+    .order-card .subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 28px; border-bottom: 2px solid var(--primary-light); padding-bottom: 16px; }
+
+    .section-heading { font-weight: 700; font-size: 0.92rem; color: var(--primary); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; margin-top: 6px; }
+    .section-heading i { font-size: 0.85rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 16px; }
+    .form-label { display: block; font-weight: 700; font-size: 0.87rem; color: var(--text-dark); margin-bottom: 7px; }
+    .form-label .req { color: var(--error); }
+    .form-input {
+      width: 100%; padding: 12px 16px; border: 2px solid var(--border);
+      border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.95rem;
+      color: var(--text-dark); outline: none; transition: var(--transition);
+    }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,111,196,.1); }
+    textarea.form-input { resize: vertical; min-height: 90px; }
+
+    /* CUSTOMER INFO STRIP */
+    .customer-strip {
+      background: var(--primary-light); border-radius: var(--radius-sm); padding: 14px 18px;
+      margin-bottom: 24px; display: flex; align-items: center; gap: 12px; border: 1px solid rgba(26,111,196,.15);
+    }
+    .customer-strip i { color: var(--primary); font-size: 1.2rem; }
+    .customer-strip .cname { font-weight: 700; color: var(--text-dark); }
+    .customer-strip .cphone { font-size: 0.85rem; color: var(--text-light); }
+
+    .submit-btn { width: 100%; justify-content: center; padding: 15px; border-radius: var(--radius-sm); font-size: 1rem; }
+
+    .note-box { background: #fffbf0; border: 1px solid #f5d06a; border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.85rem; color: #7a5c00; margin-top: 16px; display: flex; gap: 9px; }
+    .note-box i { margin-top: 2px; }
+
+    /* MESSAGES */
+    .alert { display: flex; align-items: flex-start; gap: 10px; padding: 12px 16px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; margin-bottom: 12px; }
+    .alert-success { background: #f0fff4; color: #276749; border: 1px solid #c6f6d5; }
+    .alert-error { background: #fff5f5; color: #9b2c2c; border: 1px solid #fed7d7; }
+
+    .simple-footer { background: var(--text-dark); color: rgba(255,255,255,0.6); text-align: center; padding: 22px; font-size: 0.85rem; }
+    .simple-footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .buy-layout { grid-template-columns: 1fr; }
+      .product-summary { position: static; }
+      .form-row { grid-template-columns: 1fr; }
+      .order-card { padding: 22px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Pratapgarh, U.P.</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <a href="{% url 'products' %}" class="btn-outline btn" style="padding:9px 18px;font-size:0.87rem;border-radius:50px;"><i class="fas fa-arrow-left"></i> Back to Products</a>
+      <a href="tel:+919044790354" class="nav-call"><i class="fas fa-phone-alt"></i> Call Now</a>
+      <a href="https://wa.me/919044790354" target="_blank" class="nav-wa"><i class="fab fa-whatsapp"></i></a>
+    </div>
+  </div>
+</nav>
+
+<div class="breadcrumb-bar">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a href="{% url 'home' %}">Home</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>
+      <a href="{% url 'products' %}">Products</a> <i class="fas fa-chevron-right" style="font-size:0.7rem;"></i>
+      <span>Place Order</span>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+  <div class="buy-layout">
+
+    <!-- PRODUCT SUMMARY -->
+    <div class="product-summary">
+      <img class="prod-img"
+        src="{{ product.image_url }}"
+        alt="{{ product.name }}"
+        onerror="this.src='https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&q=80'"
+      />
+      <div class="prod-details">
+        {% if product.brand %}<div class="prod-brand">{{ product.brand }}</div>{% endif %}
+        <div class="prod-name">{{ product.name }}</div>
+        {% if product.description %}<p class="prod-desc">{{ product.description }}</p>{% endif %}
+        <div class="prod-price">{{ product.price_range }}</div>
+        <div class="prod-info-row"><i class="fas fa-shipping-fast"></i> Home delivery available</div>
+        <div class="prod-info-row"><i class="fas fa-undo"></i> 7-day exchange policy</div>
+        <div class="prod-info-row"><i class="fas fa-eye"></i> Free eye checkup with purchase</div>
+        <div class="prod-info-row"><i class="fas fa-phone-alt"></i> We'll confirm via call/WhatsApp</div>
+      </div>
+    </div>
+
+    <!-- ORDER FORM -->
+    <div class="order-card">
+      <h2>Place Your Order</h2>
+      <p class="subtitle">Delivery details bharo, hum aapko confirm karenge 📦</p>
+
+      {% if messages %}
+        {% for msg in messages %}
+        <div class="alert {% if '✅' in msg.message %}alert-success{% else %}alert-error{% endif %}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <!-- CUSTOMER INFO -->
+      <div class="customer-strip">
+        <i class="fas fa-user-circle"></i>
+        <div>
+          <div class="cname">{{ customer.name }}</div>
+          <div class="cphone">📱 {{ customer.phone }}{% if customer.email %} | {{ customer.email }}{% endif %}</div>
+        </div>
+        <a href="{% url 'customer_dashboard' %}" style="margin-left:auto; font-size:0.82rem; color:var(--primary); font-weight:700; text-decoration:none;">My Orders →</a>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="section-heading"><i class="fas fa-map-marker-alt"></i> Delivery Address</div>
+
+        <div class="form-group">
+          <label class="form-label" for="delivery_address">Full Address <span class="req">*</span></label>
+          <textarea id="delivery_address" name="delivery_address" class="form-input" placeholder="Ghar ka poora pata — gali, mohalla, etc." required>{% if customer.address %}{{ customer.address }}{% endif %}</textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="delivery_city">City <span class="req">*</span></label>
+            <input type="text" id="delivery_city" name="delivery_city" class="form-input" placeholder="e.g. Pratapgarh" value="{% if customer.city %}{{ customer.city }}{% endif %}" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="delivery_pincode">Pincode <span class="req">*</span></label>
+            <input type="text" id="delivery_pincode" name="delivery_pincode" class="form-input" placeholder="e.g. 230001" value="{% if customer.pincode %}{{ customer.pincode }}{% endif %}" maxlength="6" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="landmark">Landmark <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <input type="text" id="landmark" name="landmark" class="form-input" placeholder="e.g. SBI Bank ke paas, Main Market" />
+        </div>
+
+        <div class="section-heading" style="margin-top:22px;"><i class="fas fa-sticky-note"></i> Special Instructions</div>
+
+        <div class="form-group">
+          <label class="form-label" for="notes">Notes / Prescription Details <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <textarea id="notes" name="notes" class="form-input" placeholder="Koi khas zaroorat ho to likhein — power number, lens type, colour preference, etc."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn">
+          <i class="fas fa-shopping-bag"></i> Confirm Order
+        </button>
+      </form>
+
+      <div class="note-box">
+        <i class="fas fa-info-circle"></i>
+        <div>Order place hone ke baad hum aapko <strong>{{ customer.phone }}</strong> par call/WhatsApp karenge confirmation ke liye. Payment on delivery available hai.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+</body>
+</html>

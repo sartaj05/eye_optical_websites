@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Prescription – Eye Drishti Optical</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary:#1a6fc4;--primary-dark:#1257a0;--primary-light:#e8f2fc;
+      --accent:#f5a623;--white:#fff;--off-white:#f7fafd;--light-gray:#edf2f7;
+      --text-dark:#1a202c;--text-body:#4a5568;--text-light:#718096;--border:#e2e8f0;
+      --shadow-lg:0 16px 48px rgba(0,0,0,.13);--radius:14px;--radius-sm:8px;
+      --font-display:'Playfair Display',serif;--font-body:'Nunito',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--font-body);color:var(--text-body);background:var(--off-white);}
+    .container{max-width:760px;margin:0 auto;padding:0 20px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;border-radius:50px;font-weight:700;font-size:.9rem;font-family:var(--font-body);cursor:pointer;border:none;transition:.3s ease;text-decoration:none;}
+    .btn-primary{background:var(--primary);color:#fff;}
+    .btn-primary:hover{background:var(--primary-dark);}
+
+    .ann-bar{background:linear-gradient(90deg,var(--primary-dark),var(--primary));color:#fff;text-align:center;padding:9px 20px;font-size:.84rem;font-weight:600;}
+    .navbar{background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.07);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;max-width:1200px;margin:0 auto;}
+    .nav-brand{display:flex;align-items:center;gap:11px;text-decoration:none;}
+    .nav-logo{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+    .brand-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--text-dark);}
+    .brand-sub{font-size:.7rem;color:var(--primary);font-weight:600;}
+
+    .wrap{padding:44px 0 60px;}
+    .rx-card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden;}
+
+    .rx-header{background:linear-gradient(135deg,#1a6fc4,#2589e8);padding:32px;text-align:center;color:#fff;}
+    .rx-header h1{font-family:var(--font-display);font-size:1.7rem;margin-bottom:6px;}
+    .rx-header p{opacity:.85;font-size:.95rem;}
+    .rx-badge{display:inline-block;background:rgba(255,255,255,.2);padding:5px 18px;border-radius:50px;font-weight:700;font-size:.85rem;margin-top:10px;border:1px solid rgba(255,255,255,.3);}
+
+    .rx-body{padding:32px;}
+    .rx-section{margin-bottom:28px;}
+    .rx-section h3{font-family:var(--font-display);font-size:1rem;color:var(--text-dark);display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:2px solid var(--primary-light);margin-bottom:14px;}
+
+    .rx-table{width:100%;border-collapse:collapse;font-size:.88rem;}
+    .rx-table th{background:var(--primary-light);color:var(--primary);padding:10px 14px;text-align:left;font-weight:700;}
+    .rx-table td{padding:10px 14px;border-bottom:1px solid var(--light-gray);color:var(--text-dark);font-weight:600;}
+    .rx-table tr:last-child td{border-bottom:none;}
+    .rx-table td:first-child{color:var(--text-light);}
+
+    .eye-label-r{background:#fce8e8;color:#c53030;padding:3px 12px;border-radius:50px;font-size:.78rem;font-weight:800;}
+    .eye-label-l{background:#e8f0fc;color:var(--primary);padding:3px 12px;border-radius:50px;font-size:.78rem;font-weight:800;}
+
+    .notes-box{background:var(--primary-light);border-radius:var(--radius-sm);padding:16px;font-size:.9rem;color:var(--text-body);}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+
+    .print-note{background:#fffbf0;border:1px solid #f5d06a;border-radius:var(--radius-sm);padding:12px 16px;font-size:.83rem;color:#7a5c00;display:flex;gap:9px;margin-top:16px;}
+
+    .simple-footer{background:var(--text-dark);color:rgba(255,255,255,.6);text-align:center;padding:22px;font-size:.85rem;}
+    .simple-footer a{color:var(--accent);text-decoration:none;}
+
+    @media print{
+      .ann-bar,.navbar,.cta-row,.print-note,.simple-footer{display:none!important;}
+      .rx-card{box-shadow:none;border:1px solid #ccc;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Pratapgarh, U.P.</div>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div>
+        <div class="brand-name">Eye Drishti Optical</div>
+        <div class="brand-sub">Pratapgarh, U.P. | Since 2015</div>
+      </div>
+    </a>
+    <a href="{% url 'customer_dashboard' %}" class="btn btn-primary" style="font-size:.85rem;padding:9px 18px;"><i class="fas fa-arrow-left"></i> Dashboard</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="container">
+    <div class="rx-card">
+      <div class="rx-header">
+        <div style="font-size:2rem;margin-bottom:10px;">👓</div>
+        <h1>Eye Prescription</h1>
+        <p>{{ rx.customer.name }} ji ka prescription record</p>
+        <div class="rx-badge">Exam Date: {{ rx.exam_date|date:"d M Y" }}</div>
+      </div>
+
+      <div class="rx-body">
+
+        <div class="rx-section">
+          <h3><i class="fas fa-eye" style="color:var(--primary);"></i> Lens Power Chart</h3>
+          <table class="rx-table">
+            <thead>
+              <tr>
+                <th>Eye</th>
+                <th>SPH</th>
+                <th>CYL</th>
+                <th>Axis</th>
+                <th>ADD</th>
+                <th>VA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="eye-label-r">Right (OD)</span></td>
+                <td>{{ rx.right_sph|default:"–" }}</td>
+                <td>{{ rx.right_cyl|default:"–" }}</td>
+                <td>{{ rx.right_axis|default:"–" }}</td>
+                <td>{{ rx.right_add|default:"–" }}</td>
+                <td>{{ rx.right_va|default:"–" }}</td>
+              </tr>
+              <tr>
+                <td><span class="eye-label-l">Left (OS)</span></td>
+                <td>{{ rx.left_sph|default:"–" }}</td>
+                <td>{{ rx.left_cyl|default:"–" }}</td>
+                <td>{{ rx.left_axis|default:"–" }}</td>
+                <td>{{ rx.left_add|default:"–" }}</td>
+                <td>{{ rx.left_va|default:"–" }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {% if rx.pd %}
+        <div class="rx-section">
+          <h3><i class="fas fa-ruler" style="color:var(--primary);"></i> Pupillary Distance</h3>
+          <div style="font-size:1.1rem;font-weight:700;color:var(--text-dark);">PD: {{ rx.pd }} mm</div>
+        </div>
+        {% endif %}
+
+        {% if rx.notes %}
+        <div class="rx-section">
+          <h3><i class="fas fa-notes-medical" style="color:var(--primary);"></i> Doctor Notes</h3>
+          <div class="notes-box">{{ rx.notes }}</div>
+        </div>
+        {% endif %}
+
+        <div class="rx-section">
+          <h3><i class="fas fa-store" style="color:var(--primary);"></i> Issued By</h3>
+          <div style="font-size:.9rem;">
+            <strong>Eye Drishti Optical</strong><br>
+            Shop No. 6, Nayab Market, Kachahri Road, Pratapgarh, U.P. 230001<br>
+            📞 +91 90447 90354
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button onclick="window.print()" class="btn btn-primary"><i class="fas fa-print"></i> Print / Save PDF</button>
+          <a href="{% url 'customer_dashboard' %}" class="btn" style="background:var(--light-gray);color:var(--text-dark);border-radius:50px;"><i class="fas fa-home"></i> Dashboard</a>
+          <a href="{% url 'products' %}" class="btn" style="background:var(--light-gray);color:var(--text-dark);border-radius:50px;"><i class="fas fa-shopping-bag"></i> Order Glasses</a>
+        </div>
+
+        <div class="print-note">
+          <i class="fas fa-info-circle" style="margin-top:2px;"></i>
+          <div>This prescription is valid for <strong>1 year</strong> from the exam date. For any updates, please visit Eye Drishti Optical.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+</body>
+</html>

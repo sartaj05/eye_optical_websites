@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Update Profile – Eye Drishti Optical</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root{--primary:#1a6fc4;--primary-dark:#1257a0;--primary-light:#e8f2fc;--accent:#f5a623;--white:#fff;--off-white:#f7fafd;--light-gray:#edf2f7;--text-dark:#1a202c;--text-body:#4a5568;--text-light:#718096;--border:#e2e8f0;--shadow-lg:0 16px 48px rgba(0,0,0,.13);--radius:14px;--radius-sm:8px;--font-display:'Playfair Display',serif;--font-body:'Nunito',sans-serif;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:var(--font-body);color:var(--text-body);background:var(--off-white);}
+    .container{max-width:640px;margin:0 auto;padding:0 20px;}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:50px;font-weight:700;font-size:.93rem;font-family:var(--font-body);cursor:pointer;border:none;transition:.3s ease;text-decoration:none;}
+    .btn-primary{background:var(--primary);color:#fff;}
+    .btn-primary:hover{background:var(--primary-dark);}
+
+    .ann-bar{background:linear-gradient(90deg,var(--primary-dark),var(--primary));color:#fff;text-align:center;padding:9px 20px;font-size:.84rem;font-weight:600;}
+    .navbar{background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.07);}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;max-width:1200px;margin:0 auto;}
+    .nav-brand{display:flex;align-items:center;gap:11px;text-decoration:none;}
+    .nav-logo{width:44px;height:44px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+    .brand-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--text-dark);}
+    .brand-sub{font-size:.7rem;color:var(--primary);font-weight:600;}
+
+    .wrap{padding:44px 0 60px;}
+    .card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow-lg);padding:32px;}
+    .card h2{font-family:var(--font-display);font-size:1.5rem;color:var(--text-dark);margin-bottom:6px;}
+    .card .sub{color:var(--text-light);font-size:.9rem;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--primary-light);}
+
+    .section-heading{font-weight:700;font-size:.9rem;color:var(--primary);margin:20px 0 12px;display:flex;align-items:center;gap:7px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+    .form-group{margin-bottom:16px;}
+    .form-label{display:block;font-weight:700;font-size:.87rem;color:var(--text-dark);margin-bottom:7px;}
+    .form-label .req{color:#e53e3e;}
+    .form-input{width:100%;padding:12px 16px;border:2px solid var(--border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:.95rem;color:var(--text-dark);outline:none;transition:.3s;}
+    .form-input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,111,196,.1);}
+    textarea.form-input{resize:vertical;min-height:80px;}
+
+    .phone-locked{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--light-gray);border:2px solid var(--border);border-radius:var(--radius-sm);color:var(--text-dark);font-weight:700;font-size:.95rem;}
+    .phone-locked i{color:var(--text-light);}
+
+    .password-section{background:var(--primary-light);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;}
+    .password-section p{font-size:.84rem;color:var(--text-body);margin-bottom:12px;}
+
+    .alert{display:flex;align-items:flex-start;gap:10px;padding:12px 16px;border-radius:var(--radius-sm);font-size:.9rem;font-weight:600;margin-bottom:14px;}
+    .alert-error{background:#fff5f5;color:#9b2c2c;border:1px solid #fed7d7;}
+    .alert-success{background:#f0fff4;color:#276749;border:1px solid #c6f6d5;}
+
+    .submit-btn{width:100%;justify-content:center;padding:15px;border-radius:var(--radius-sm);font-size:1rem;margin-top:8px;}
+
+    .simple-footer{background:var(--text-dark);color:rgba(255,255,255,.6);text-align:center;padding:22px;font-size:.85rem;}
+    .simple-footer a{color:var(--accent);text-decoration:none;}
+
+    @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<div class="ann-bar">👁️ Free Eye Checkup with Every Frame Purchase | Pratapgarh, U.P.</div>
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-brand">
+      <div class="nav-logo">👁️</div>
+      <div><div class="brand-name">Eye Drishti Optical</div><div class="brand-sub">Pratapgarh, U.P. | Since 2015</div></div>
+    </a>
+    <a href="{% url 'customer_dashboard' %}" class="btn btn-primary" style="font-size:.85rem;padding:9px 18px;"><i class="fas fa-arrow-left"></i> Dashboard</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="container">
+    <div class="card">
+      <h2>👤 Update Profile</h2>
+      <p class="sub">Apni details update karein — delivery ke liye sahi address zaroor bharo.</p>
+
+      {% if messages %}
+        {% for msg in messages %}
+        <div class="alert {% if '✅' in msg.message %}alert-success{% else %}alert-error{% endif %}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+
+      <form method="POST">
+        {% csrf_token %}
+
+        <div class="section-heading"><i class="fas fa-user"></i> Personal Info</div>
+
+        <div class="form-group">
+          <label class="form-label" for="name">Full Name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" class="form-input" value="{{ customer.name }}" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone (cannot be changed)</label>
+          <div class="phone-locked"><i class="fas fa-lock"></i> {{ customer.phone }}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span style="color:var(--text-light);font-weight:400;">(optional)</span></label>
+          <input type="email" id="email" name="email" class="form-input" value="{{ customer.email|default:'' }}" placeholder="aapka@email.com" />
+        </div>
+
+        <div class="section-heading" style="margin-top:22px;"><i class="fas fa-map-marker-alt"></i> Address Details</div>
+
+        <div class="form-group">
+          <label class="form-label" for="address">Full Address</label>
+          <textarea id="address" name="address" class="form-input" placeholder="Ghar ka poora pata">{{ customer.address }}</textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="city">City</label>
+            <input type="text" id="city" name="city" class="form-input" value="{{ customer.city }}" placeholder="e.g. Pratapgarh" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pincode">Pincode</label>
+            <input type="text" id="pincode" name="pincode" class="form-input" value="{{ customer.pincode }}" placeholder="e.g. 230001" maxlength="6" />
+          </div>
+        </div>
+
+        <div class="section-heading" style="margin-top:22px;"><i class="fas fa-lock"></i> Change Password</div>
+        <div class="password-section">
+          <p>Password change karna chahte hain? Naya password fill karein. Nahi karna to khali chod dein.</p>
+          <div class="form-group">
+            <label class="form-label" for="new_password">New Password</label>
+            <input type="password" id="new_password" name="new_password" class="form-input" placeholder="Minimum 6 characters" autocomplete="new-password" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label" for="confirm_password">Confirm New Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" class="form-input" placeholder="Repeat new password" autocomplete="new-password" />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary submit-btn"><i class="fas fa-save"></i> Save Changes</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="simple-footer">
+  &copy; 2025 Eye Drishti Optical, Pratapgarh | <a href="{% url 'home' %}">Home</a> | <a href="tel:+919044790354">+91 90447 90354</a>
+</div>
+
+</body>
+</html>

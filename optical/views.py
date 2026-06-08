@@ -1,4 +1,5 @@
 import re
+import csv
 import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -6,7 +7,12 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User as DjangoUser
 from django.views.decorators.http import require_POST
-from .models import Inquiry, Product, Testimonial, Customer, Order, Appointment
+from django.http import HttpResponse, JsonResponse
+from .models import (
+    Inquiry, Product, Testimonial,
+    Customer, Order, Appointment,
+    Prescription, ProductReview, WishlistItem,  # NEW
+)
 
 # ─── Business Info ────────────────────────────────────────────────────────────
 
@@ -54,6 +60,8 @@ FAQS = [
     {'question': 'Do you provide home delivery?', 'answer': 'Yes, home delivery within Pratapgarh city and nearby areas.'},
     {'question': 'What is your return/exchange policy?', 'answer': "7-day exchange on frames. Lens re-make free within 30 days if prescription doesn't suit."},
     {'question': 'Do you repair old glasses?', 'answer': 'Yes! We repair broken frames, replace nose pads, tighten screws. Very affordable charges.'},
+    {'question': 'Can I see my eye prescription online?', 'answer': 'Yes! After your eye checkup at our shop, your prescription is saved in your account. Login to view it anytime.'},
+    {'question': 'Is there a referral program?', 'answer': 'Yes! Share your referral code with friends. When they register, both of you get a discount on your next purchase.'},
 ]
 
 SERVICES = [
@@ -65,29 +73,27 @@ SERVICES = [
     {'icon': '🏠', 'title': 'Home Delivery', 'title_hi': 'होम डिलीवरी', 'description': 'Get your glasses delivered at your doorstep in Pratapgarh.', 'highlight': 'Pratapgarh & nearby'},
 ]
 
-# ─── Security: Session-based Login Rate Limiting ──────────────────────────────
-# Max 5 failed login attempts before 15-minute lockout.
+LENS_TYPES = ['Single Vision', 'Bifocal', 'Progressive', 'Blue Cut', 'Photochromic', 'Bifocal + Blue Cut']
+LENS_COATINGS = ['Anti-Reflection (AR)', 'UV400', 'Scratch Resistant', 'Photochromic', 'Mirror Coating', 'No Coating']
+FRAME_COLORS = ['Black', 'Silver', 'Gold', 'Brown', 'Blue', 'Red', 'Transparent', 'Gunmetal']
 
 MAX_LOGIN_ATTEMPTS = 5
-LOCKOUT_DURATION = 15 * 60  # 15 minutes in seconds
+LOCKOUT_DURATION = 15 * 60
 
 
 def _check_rate_limit(request):
-    """Returns (is_locked, seconds_remaining)."""
     attempts = request.session.get('login_attempts', 0)
     lockout_until = request.session.get('login_lockout_until', 0)
     now = time.time()
     if lockout_until and now < lockout_until:
         return True, int(lockout_until - now)
     if lockout_until and now >= lockout_until:
-        # Lockout expired — auto reset
         request.session['login_attempts'] = 0
         request.session['login_lockout_until'] = 0
     return False, 0
 
 
 def _record_failed_attempt(request):
-    """Increment failure count; trigger lockout when threshold is reached."""
     attempts = request.session.get('login_attempts', 0) + 1
     request.session['login_attempts'] = attempts
     if attempts >= MAX_LOGIN_ATTEMPTS:
@@ -100,15 +106,8 @@ def _reset_rate_limit(request):
     request.session['login_lockout_until'] = 0
 
 
-# ─── Validation Helpers ───────────────────────────────────────────────────────
-
 def _validate_phone(phone):
-    """
-    Cleans and validates an Indian mobile number.
-    Returns (True, cleaned_phone) on success or (False, error_msg) on failure.
-    """
     phone = re.sub(r'[\s\-\(\)+]', '', phone)
-    # Strip leading country code 91 if present
     if phone.startswith('91') and len(phone) == 12:
         phone = phone[2:]
     if not phone:
@@ -118,15 +117,7 @@ def _validate_phone(phone):
     return True, phone
 
 
-# ─── No-Cache Helpers (Back-button prevention) ───────────────────────────────
-
 def _no_cache(response):
-    """
-    Attach HTTP headers that prevent any browser or proxy from caching
-    this response. After logout, pressing Back will reload from the server,
-    not from cache — so the browser will redirect to login instead of
-    showing a stale protected page.
-    """
     response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0, private'
     response['Pragma'] = 'no-cache'
     response['Expires'] = '0'
@@ -134,14 +125,10 @@ def _no_cache(response):
 
 
 def protected_render(request, template, context):
-    """Render a protected page with no-cache headers."""
     return _no_cache(render(request, template, context))
 
 
-# ─── Helpers ─────────────────────────────────────────────────────────────────
-
 def get_logged_in_customer(request):
-    """Return Customer instance if session is valid, else None."""
     customer_id = request.session.get('customer_id')
     if not customer_id:
         return None
@@ -156,6 +143,14 @@ def _base_context(request):
     ctx = dict(BUSINESS_INFO)
     ctx['customer'] = get_logged_in_customer(request)
     return ctx
+
+
+def _get_wishlist_ids(request):
+    """Return set of product_id_str values in current customer's wishlist."""
+    customer = get_logged_in_customer(request)
+    if not customer:
+        return set()
+    return set(WishlistItem.objects.filter(customer=customer).values_list('product_id_str', flat=True))
 
 
 # ─── Public Views ─────────────────────────────────────────────────────────────
@@ -200,6 +195,7 @@ def home(request):
         'services': SERVICES,
         'use_db_products': use_db,
         'categories': ['eyeglasses', 'sunglasses', 'contact_lenses', 'frames', 'reading_glasses'],
+        'wishlist_ids': _get_wishlist_ids(request),
     }
     return render(request, 'optical/home.html', context)
 
@@ -224,6 +220,7 @@ def products(request):
         'selected_category': category,
         'categories': ['eyeglasses', 'sunglasses', 'contact_lenses', 'frames', 'reading_glasses'],
         'use_db_products': use_db,
+        'wishlist_ids': _get_wishlist_ids(request),
     }
     return render(request, 'optical/products.html', context)
 
@@ -231,46 +228,35 @@ def products(request):
 # ─── Auth Views ───────────────────────────────────────────────────────────────
 
 def customer_login(request):
-    """
-    Unified login page for both customers and superadmin.
-
-    CUSTOMER LOGIN:
-      - Phone number (10-digit Indian) + password
-      - On success: redirect to home (or ?next= URL)
-
-    SUPERADMIN LOGIN:
-      - Django username + password in the same form
-      - Detected automatically — if username matches a Django staff user, uses Django auth
-      - On success: redirect to admin-dashboard
-
-    SECURITY:
-      - Rate limiting: 5 failed attempts → 15 min lockout (per session)
-      - Phone validation: must be a valid Indian mobile number
-      - No-cache headers: login page itself is not cached after logout
-      - Session expiry: 7 days for remembered sessions
-    """
-    # Already logged in as customer → go home
     if get_logged_in_customer(request):
         return _no_cache(redirect('home'))
-
-    # Already logged in as Django staff → go to admin dashboard
     if request.user.is_authenticated and request.user.is_staff:
         return _no_cache(redirect('admin_dashboard'))
 
     next_url = request.GET.get('next', '')
+    referral_code = request.GET.get('ref', '').upper().strip()  # NEW: referral code pre-fill
 
     if request.method == 'POST':
         action = request.POST.get('action')
 
-        # ── SIGNUP ──────────────────────────────────────────────────────────
         if action == 'signup':
             name = request.POST.get('name', '').strip()
             phone_raw = request.POST.get('phone', '').strip()
             email = request.POST.get('email', '').strip()
             password = request.POST.get('password', '')
             confirm_password = request.POST.get('confirm_password', '')
+            ref_code = request.POST.get('referral_code', '').strip().upper()  # NEW
 
             phone_valid, phone_result = _validate_phone(phone_raw)
+
+            referred_by = None
+            if ref_code:
+                try:
+                    referred_by = Customer.objects.get(referral_code=ref_code)
+                except Customer.DoesNotExist:
+                    messages.error(request, '❌ Invalid referral code. Leave blank if you don\'t have one.')
+                    context = {**_base_context(request), 'next': next_url, 'ref': ref_code}
+                    return _no_cache(render(request, 'optical/login.html', context))
 
             if not all([name, phone_raw, password]):
                 messages.error(request, '❌ Name, Phone and Password are required.')
@@ -292,16 +278,15 @@ def customer_login(request):
                     phone=phone_result,
                     email=email if email else None,
                     password=make_password(password),
+                    referred_by=referred_by,
                 )
                 request.session['customer_id'] = customer.id
-                request.session.set_expiry(86400 * 7)  # remember for 7 days
+                request.session.set_expiry(86400 * 7)
                 _reset_rate_limit(request)
                 messages.success(request, f'✅ Welcome {name} ji! Account created successfully.')
                 return _no_cache(redirect(next_url or 'home'))
 
-        # ── LOGIN ───────────────────────────────────────────────────────────
         elif action == 'login':
-            # Rate limit check
             is_locked, seconds_left = _check_rate_limit(request)
             if is_locked:
                 minutes_left = (seconds_left // 60) + 1
@@ -315,8 +300,6 @@ def customer_login(request):
             if not identifier or not password:
                 messages.error(request, '❌ Phone/Username and Password cannot be empty.')
             else:
-                # ── Check if this is a Django staff/superuser ────────────────
-                # Admin enters their Django username (not phone) in the phone field
                 django_user = None
                 try:
                     django_user = DjangoUser.objects.get(username=identifier)
@@ -324,7 +307,6 @@ def customer_login(request):
                     pass
 
                 if django_user and django_user.is_staff:
-                    # Authenticate via Django's built-in system
                     auth_user = authenticate(request, username=identifier, password=password)
                     if auth_user and auth_user.is_staff:
                         auth_login(request, auth_user)
@@ -339,8 +321,6 @@ def customer_login(request):
                             messages.error(request, f'❌ Incorrect admin password. {remaining} attempt(s) remaining.')
                         else:
                             messages.error(request, '🔒 Too many failed attempts. Locked for 15 minutes.')
-
-                # ── Regular customer login ───────────────────────────────────
                 else:
                     phone_valid, phone_result = _validate_phone(identifier)
                     if not phone_valid:
@@ -350,7 +330,7 @@ def customer_login(request):
                             customer = Customer.objects.get(phone=phone_result)
                             if check_password(password, customer.password):
                                 request.session['customer_id'] = customer.id
-                                request.session.set_expiry(86400 * 7)  # 7 days
+                                request.session.set_expiry(86400 * 7)
                                 _reset_rate_limit(request)
                                 messages.success(request, f'✅ Welcome back, {customer.name} ji!')
                                 return _no_cache(redirect(next_url or 'home'))
@@ -368,32 +348,15 @@ def customer_login(request):
     context = {
         **_base_context(request),
         'next': next_url,
+        'ref': referral_code,
     }
     return _no_cache(render(request, 'optical/login.html', context))
 
 
 def customer_logout(request):
-    """
-    Secure unified logout for BOTH customers and superadmin.
-
-    What it does:
-    1. Calls auth_logout() — clears Django's superuser session
-    2. Calls session.flush() — destroys the entire session and regenerates
-       the session key (so old cookies are completely invalidated)
-    3. Redirects to /login/ (not home)
-    4. Sets Cache-Control: no-store — browser will NOT cache this redirect,
-       so pressing Back after logout always shows the login page, never
-       a stale dashboard.
-    """
-    # Step 1: Log out Django staff/superuser if authenticated
     if request.user.is_authenticated:
         auth_logout(request)
-
-    # Step 2: Destroy the entire session (stronger than just deleting customer_id).
-    # This regenerates the session key — old session cookies become invalid.
     request.session.flush()
-
-    # Step 3 + 4: Redirect to login with no-cache headers
     response = redirect('customer_login')
     response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0, private'
     response['Pragma'] = 'no-cache'
@@ -408,24 +371,70 @@ def customer_dashboard(request):
 
     orders = Order.objects.filter(customer=customer).order_by('-created_at')
     appointments = Appointment.objects.filter(customer=customer).order_by('-preferred_date')
+    prescriptions = Prescription.objects.filter(customer=customer).order_by('-exam_date')  # NEW
+    wishlist = WishlistItem.objects.filter(customer=customer).order_by('-added_at')  # NEW
+    reviews = ProductReview.objects.filter(customer=customer).order_by('-created_at')  # NEW
+    referrals = Customer.objects.filter(referred_by=customer).order_by('-created_at')  # NEW
 
     context = {
         **_base_context(request),
         'orders': orders,
         'appointments': appointments,
+        'prescriptions': prescriptions,
+        'wishlist': wishlist,
+        'reviews': reviews,
+        'referrals': referrals,
+        'referral_code': customer.referral_code,
+        'referral_link': request.build_absolute_uri(f'/login/?ref={customer.referral_code}'),
     }
-    # protected_render adds no-cache — back button after logout reloads from server
     return protected_render(request, 'optical/dashboard.html', context)
+
+
+# NEW: Update Customer Profile
+def update_profile(request):
+    customer = get_logged_in_customer(request)
+    if not customer:
+        return redirect('/login/?next=/profile/update/')
+
+    if request.method == 'POST':
+        name = request.POST.get('name', '').strip()
+        email = request.POST.get('email', '').strip()
+        address = request.POST.get('address', '').strip()
+        city = request.POST.get('city', '').strip()
+        pincode = request.POST.get('pincode', '').strip()
+        new_password = request.POST.get('new_password', '')
+        confirm_password = request.POST.get('confirm_password', '')
+
+        if not name or len(name) < 2:
+            messages.error(request, '❌ Please enter a valid name.')
+        elif email and not re.match(r'^[^@\s]+@[^@\s]+\.[^@\s]+$', email):
+            messages.error(request, '❌ Invalid email address.')
+        elif new_password and len(new_password) < 6:
+            messages.error(request, '❌ New password must be at least 6 characters.')
+        elif new_password and new_password != confirm_password:
+            messages.error(request, '❌ Passwords do not match.')
+        else:
+            customer.name = name
+            customer.email = email if email else None
+            customer.address = address
+            customer.city = city
+            customer.pincode = pincode
+            if new_password:
+                customer.password = make_password(new_password)
+            customer.save()
+            messages.success(request, '✅ Profile updated successfully!')
+            return redirect('customer_dashboard')
+
+    context = {
+        **_base_context(request),
+        'customer': customer,
+    }
+    return protected_render(request, 'optical/update_profile.html', context)
 
 
 # ─── Order / Buy Views ────────────────────────────────────────────────────────
 
 def buy_product(request, product_id):
-    """
-    product_id can be:
-    - integer  → DB Product pk
-    - 'dp_N'   → DEFAULT_PRODUCTS index
-    """
     customer = get_logged_in_customer(request)
     if not customer:
         return redirect(f'/login/?next=/buy/{product_id}/')
@@ -448,6 +457,7 @@ def buy_product(request, product_id):
                 'price_range': db_product.price_range,
                 'image_url': db_product.image_url,
                 'description': db_product.description,
+                'brand': db_product.brand,
             }
         except Product.DoesNotExist:
             messages.error(request, 'Product not found.')
@@ -459,6 +469,10 @@ def buy_product(request, product_id):
         delivery_pincode = request.POST.get('delivery_pincode', '').strip()
         landmark = request.POST.get('landmark', '').strip()
         notes = request.POST.get('notes', '').strip()
+        # NEW: lens customisation
+        lens_type = request.POST.get('lens_type', '').strip()
+        lens_coating = request.POST.get('lens_coating', '').strip()
+        frame_color = request.POST.get('frame_color', '').strip()
 
         if not all([delivery_address, delivery_city, delivery_pincode]):
             messages.error(request, '❌ Please fill all required delivery details.')
@@ -475,6 +489,9 @@ def buy_product(request, product_id):
                 delivery_pincode=delivery_pincode,
                 landmark=landmark,
                 notes=notes,
+                lens_type=lens_type,
+                lens_coating=lens_coating,
+                frame_color=frame_color,
             )
             messages.success(
                 request,
@@ -488,6 +505,9 @@ def buy_product(request, product_id):
         'product': product_info,
         'product_id': product_id,
         'customer': customer,
+        'lens_types': LENS_TYPES,
+        'lens_coatings': LENS_COATINGS,
+        'frame_colors': FRAME_COLORS,
     }
     return protected_render(request, 'optical/buy.html', context)
 
@@ -575,15 +595,114 @@ def appointment_success(request, appt_id):
     return render(request, 'optical/appointment_success.html', context)
 
 
+# ─── NEW: Prescription View ────────────────────────────────────────────────────
+
+def view_prescription(request, rx_id):
+    """Customer can view their own prescription."""
+    customer = get_logged_in_customer(request)
+    if not customer:
+        return redirect(f'/login/?next=/prescription/{rx_id}/')
+    try:
+        rx = Prescription.objects.get(id=rx_id, customer=customer)
+    except Prescription.DoesNotExist:
+        messages.error(request, '❌ Prescription not found.')
+        return redirect('customer_dashboard')
+
+    context = {
+        **_base_context(request),
+        'rx': rx,
+    }
+    return protected_render(request, 'optical/prescription.html', context)
+
+
+# ─── NEW: Wishlist Views ──────────────────────────────────────────────────────
+
+def toggle_wishlist(request):
+    """AJAX-friendly: add/remove product from wishlist. Returns JSON."""
+    customer = get_logged_in_customer(request)
+    if not customer:
+        return JsonResponse({'status': 'login_required'}, status=401)
+
+    if request.method != 'POST':
+        return JsonResponse({'status': 'method_not_allowed'}, status=405)
+
+    product_id_str = request.POST.get('product_id', '').strip()
+    product_name = request.POST.get('product_name', '').strip()
+
+    if not product_id_str:
+        return JsonResponse({'status': 'error', 'message': 'product_id missing'}, status=400)
+
+    # Check if it's a DB product
+    db_product = None
+    if not product_id_str.startswith('dp_'):
+        try:
+            db_product = Product.objects.get(pk=product_id_str)
+            product_name = product_name or db_product.name
+        except Product.DoesNotExist:
+            pass
+
+    existing = WishlistItem.objects.filter(customer=customer, product_id_str=product_id_str).first()
+    if existing:
+        existing.delete()
+        return JsonResponse({'status': 'removed', 'message': f'Removed from wishlist'})
+    else:
+        WishlistItem.objects.create(
+            customer=customer,
+            product=db_product,
+            product_name=product_name or product_id_str,
+            product_id_str=product_id_str,
+        )
+        return JsonResponse({'status': 'added', 'message': f'Added to wishlist'})
+
+
+# ─── NEW: Product Review View ─────────────────────────────────────────────────
+
+def submit_review(request, product_id):
+    customer = get_logged_in_customer(request)
+    if not customer:
+        return redirect(f'/login/?next=/review/{product_id}/')
+
+    try:
+        db_product = Product.objects.get(pk=product_id)
+    except Product.DoesNotExist:
+        messages.error(request, '❌ Product not found.')
+        return redirect('products')
+
+    # Check if customer already reviewed this product
+    existing = ProductReview.objects.filter(customer=customer, product=db_product).first()
+    if existing:
+        messages.info(request, 'ℹ️ You have already submitted a review for this product.')
+        return redirect('products')
+
+    if request.method == 'POST':
+        rating = int(request.POST.get('rating', 5))
+        review_text = request.POST.get('review', '').strip()
+
+        if not review_text or len(review_text) < 10:
+            messages.error(request, '❌ Please write a review of at least 10 characters.')
+        elif rating not in range(1, 6):
+            messages.error(request, '❌ Invalid rating.')
+        else:
+            ProductReview.objects.create(
+                product=db_product,
+                customer=customer,
+                rating=rating,
+                review=review_text,
+                is_approved=False,  # Admin must approve
+            )
+            messages.success(request, '✅ Shukriya! Your review has been submitted and will appear after approval.')
+            return redirect('customer_dashboard')
+
+    context = {
+        **_base_context(request),
+        'product': db_product,
+    }
+    return protected_render(request, 'optical/submit_review.html', context)
+
+
 # ─── Admin Dashboard View ─────────────────────────────────────────────────────
 
 def admin_dashboard(request):
-    """
-    Owner/superuser dashboard.
-    - Now redirects unauthenticated users to /login/ (not /admin/login/)
-    - Protected with no-cache headers so back-button after logout shows login
-    """
-    # Redirect to our custom login page (not Django's /admin/login/)
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('/login/?next=/admin-dashboard/')
 
@@ -593,25 +712,79 @@ def admin_dashboard(request):
 
     if request.method == 'POST':
         action = request.POST.get('action')
+
         if action == 'update_order_status':
             order_id = request.POST.get('order_id')
             new_status = request.POST.get('status')
+            admin_note = request.POST.get('admin_note', '').strip()  # NEW
             try:
                 order = Order.objects.get(id=order_id)
                 order.status = new_status
+                if admin_note:
+                    order.admin_note = admin_note
                 order.save()
                 messages.success(request, f'✅ Order #{order_id} status updated to {new_status}.')
             except Order.DoesNotExist:
                 messages.error(request, '❌ Order not found.')
+
         elif action == 'confirm_appointment':
             appt_id = request.POST.get('appt_id')
+            admin_note = request.POST.get('admin_note', '').strip()  # NEW
             try:
                 appt = Appointment.objects.get(id=appt_id)
                 appt.is_confirmed = True
+                if admin_note:
+                    appt.admin_note = admin_note
                 appt.save()
                 messages.success(request, f'✅ Appointment #{appt_id} confirmed.')
             except Appointment.DoesNotExist:
                 messages.error(request, '❌ Appointment not found.')
+
+        # NEW: save prescription from admin dashboard
+        elif action == 'save_prescription':
+            customer_id = request.POST.get('customer_id')
+            exam_date = request.POST.get('exam_date')
+            try:
+                cust = Customer.objects.get(id=customer_id)
+                Prescription.objects.create(
+                    customer=cust,
+                    exam_date=exam_date,
+                    right_sph=request.POST.get('right_sph', ''),
+                    right_cyl=request.POST.get('right_cyl', ''),
+                    right_axis=request.POST.get('right_axis', ''),
+                    right_add=request.POST.get('right_add', ''),
+                    right_va=request.POST.get('right_va', ''),
+                    left_sph=request.POST.get('left_sph', ''),
+                    left_cyl=request.POST.get('left_cyl', ''),
+                    left_axis=request.POST.get('left_axis', ''),
+                    left_add=request.POST.get('left_add', ''),
+                    left_va=request.POST.get('left_va', ''),
+                    pd=request.POST.get('pd', ''),
+                    notes=request.POST.get('notes', ''),
+                )
+                messages.success(request, f'✅ Prescription saved for {cust.name}.')
+            except Customer.DoesNotExist:
+                messages.error(request, '❌ Customer not found.')
+
+        # NEW: approve product review
+        elif action == 'approve_review':
+            review_id = request.POST.get('review_id')
+            try:
+                rev = ProductReview.objects.get(id=review_id)
+                rev.is_approved = True
+                rev.save()
+                messages.success(request, f'✅ Review #{review_id} approved.')
+            except ProductReview.DoesNotExist:
+                messages.error(request, '❌ Review not found.')
+
+        elif action == 'delete_review':
+            review_id = request.POST.get('review_id')
+            try:
+                ProductReview.objects.get(id=review_id).delete()
+                messages.success(request, f'✅ Review #{review_id} deleted.')
+            except ProductReview.DoesNotExist:
+                pass
+
         qs = request.META.get('QUERY_STRING', '')
         return redirect(request.path + ('?' + qs if qs else ''))
 
@@ -638,6 +811,8 @@ def admin_dashboard(request):
         customers_qs = customers_qs.filter(name__icontains=search) | customers_qs.filter(phone__icontains=search)
 
     inquiries_qs = Inquiry.objects.order_by('-created_at')
+    reviews_qs = ProductReview.objects.select_related('customer', 'product').order_by('-created_at')  # NEW
+    prescriptions_qs = Prescription.objects.select_related('customer').order_by('-exam_date')  # NEW
 
     stats = {
         'total_orders': Order.objects.count(),
@@ -649,6 +824,8 @@ def admin_dashboard(request):
         'confirmed_appointments': Appointment.objects.filter(is_confirmed=True).count(),
         'total_customers': Customer.objects.count(),
         'total_inquiries': Inquiry.objects.count(),
+        'pending_reviews': ProductReview.objects.filter(is_approved=False).count(),  # NEW
+        'total_prescriptions': Prescription.objects.count(),  # NEW
     }
 
     context = {
@@ -657,6 +834,8 @@ def admin_dashboard(request):
         'appointments': appts_qs,
         'customers': customers_qs,
         'inquiries': inquiries_qs,
+        'reviews': reviews_qs,
+        'prescriptions': prescriptions_qs,
         'stats': stats,
         'order_status_filter': order_status,
         'appt_confirmed_filter': appt_confirmed,
@@ -664,3 +843,71 @@ def admin_dashboard(request):
         'order_status_choices': Order.STATUS_CHOICES,
     }
     return protected_render(request, 'optical/admin_dashboard.html', context)
+
+
+# ─── NEW: CSV Export Views ─────────────────────────────────────────────────────
+
+def export_orders_csv(request):
+    """Admin-only: export all orders as CSV."""
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="orders.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow([
+        'Order ID', 'Customer Name', 'Phone', 'Product', 'Price Range',
+        'Lens Type', 'Lens Coating', 'Frame Color',
+        'Address', 'City', 'Pincode', 'Landmark',
+        'Status', 'Notes', 'Admin Note', 'Date'
+    ])
+    for order in Order.objects.select_related('customer').order_by('-created_at'):
+        writer.writerow([
+            order.id, order.customer.name, order.customer.phone,
+            order.product_name, order.product_price_range,
+            order.lens_type, order.lens_coating, order.frame_color,
+            order.delivery_address, order.delivery_city, order.delivery_pincode,
+            order.landmark, order.status, order.notes, order.admin_note,
+            order.created_at.strftime('%d/%m/%Y %H:%M'),
+        ])
+    return response
+
+
+def export_customers_csv(request):
+    """Admin-only: export all customers as CSV."""
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="customers.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Phone', 'Email', 'City', 'Pincode', 'Referral Code', 'Joined'])
+    for c in Customer.objects.order_by('-created_at'):
+        writer.writerow([
+            c.id, c.name, c.phone, c.email or '',
+            c.city, c.pincode, c.referral_code or '',
+            c.created_at.strftime('%d/%m/%Y'),
+        ])
+    return response
+
+
+def export_appointments_csv(request):
+    """Admin-only: export all appointments as CSV."""
+    if not request.user.is_authenticated or not request.user.is_staff:
+        return redirect('/login/')
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="appointments.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['ID', 'Name', 'Phone', 'Service', 'Date', 'Time', 'Confirmed', 'Notes', 'Booked On'])
+    for a in Appointment.objects.order_by('-preferred_date'):
+        writer.writerow([
+            a.id, a.name, a.phone, a.get_service_type_display(),
+            a.preferred_date, a.preferred_time,
+            'Yes' if a.is_confirmed else 'No',
+            a.notes, a.created_at.strftime('%d/%m/%Y'),
+        ])
+    return response

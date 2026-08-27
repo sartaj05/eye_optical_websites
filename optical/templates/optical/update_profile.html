@@ -53,7 +53,15 @@
     .simple-footer{background:var(--text-dark);color:rgba(255,255,255,.6);text-align:center;padding:22px;font-size:.85rem;}
     .simple-footer a{color:var(--accent);text-decoration:none;}
 
-    @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+    @media(max-width:600px){
+      .form-row{grid-template-columns:1fr;}
+      .nav-inner{padding:11px 16px;}
+      .nav-brand{min-width:0;}
+      .nav-brand>div:last-child{min-width:0;}
+      .brand-name,.brand-sub{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+      .container{padding-left:16px;padding-right:16px;}
+      .card{padding:22px 18px;}
+    }
   </style>
 </head>
 <body>

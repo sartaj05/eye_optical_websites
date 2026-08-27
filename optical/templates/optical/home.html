@@ -539,6 +539,14 @@
       .gallery-grid { grid-template-columns: 1fr; }
       .hero-actions { flex-direction: column; }
     }
+    @media (max-width: 768px) {
+      html, body { width: 100%; min-width: 0; }
+      .announcement-bar, .navbar, .hero, .trust-bar, section, footer { width: 100%; max-width: 100%; }
+      .container, .nav-inner { width: 100%; max-width: none; }
+      .hero-inner, .about-grid, .contact-grid, .footer-grid { width: 100%; min-width: 0; }
+      .hero-content, .about-content, .contact-info, .contact-form { min-width: 0; }
+      img, iframe { max-width: 100%; }
+    }
   </style>
 </head>
 

@@ -8,6 +8,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-local-development-onl
 DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+for hostname in os.environ.get('ALLOWED_HOSTS', '').split(','):
+    if hostname.strip():
+        ALLOWED_HOSTS.append(hostname.strip())
 if render_hostname := os.environ.get('RENDER_EXTERNAL_HOSTNAME'):
     ALLOWED_HOSTS.append(render_hostname)
 

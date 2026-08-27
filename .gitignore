@@ -29,9 +29,8 @@ staticfiles/
 .DS_Store
 Thumbs.db
 
-# Migrations (optional - be careful)
-**/migrations/*
-!**/migrations/__init__.py
+# Keep Django migrations in version control.
+# They are required when deploying to a new database.
 
 # Python packaging
 *.egg-info/
